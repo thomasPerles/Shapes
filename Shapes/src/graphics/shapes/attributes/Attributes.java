@@ -2,6 +2,10 @@ package graphics.shapes.attributes;
 
 public abstract class Attributes {
 	
-	public abstract String getID();
-
+	public void addAttributes() {
+		
+	}
+	
+	public abstract String getId(); 
+	
 }
