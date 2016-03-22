@@ -29,11 +29,11 @@ public class ShapesView extends View{
 		Rectangle rect = rect.getBounds();
 		g.drawRect(x, y, width, height);*/
 		
-		g.setColor(Color.RED);
-		g.drawOval(5, 5, 50, 50);
-		g.drawString("Hello world !!!!!!!!!!!!!!! ahaha :-D", 60, 60);
+		//g.setColor(Color.RED);
+		//g.drawOval(5, 5, 50, 50);
+		//g.drawString("Hello world !!!!!!!!!!!!!!! ahaha :-D", 60, 60);
 		
-		g.fillRect(100,  100,  100,  50);
+		//g.fillRect(100,  100,  100,  50);
 		
 	}
 	
