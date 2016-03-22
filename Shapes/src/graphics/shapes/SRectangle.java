@@ -42,9 +42,4 @@ public class SRectangle extends Shape {
 	public void accept(ShapeVisitor visitor) {
 		// TODO Auto-generated method stub
 	}
-
-	public void draw(Graphics g) {
-		g.drawRect(rect.x, rect.y, rect.width, rect.height);
-	}
-	
 }

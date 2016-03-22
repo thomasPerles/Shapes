@@ -47,9 +47,4 @@ public class SText extends Shape {
 		// TODO Auto-generated method stub
 		
 	}
-
-	public void draw(Graphics g) {
-		g.drawString(text, loc.x, loc.y);
-	}
-
 }

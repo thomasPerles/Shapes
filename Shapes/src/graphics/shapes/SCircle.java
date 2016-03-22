@@ -6,12 +6,20 @@ import java.awt.Rectangle;
 
 public class SCircle extends Shape {
 
-	private int radius;
-	private Point loc;
+	private int radius;	//point en haut a gauche
+	private Point loc;	//rayon du cercle
 	
-	public SCircle(Point point, int r) {
-		this.radius = r;
+	public SCircle(Point point, int radius) {
+		this.radius = radius;
 		this.loc = point;
+	}
+
+	public int getRadius() {
+		return radius;
+	}
+
+	public void setRadius(int radius) {
+		this.radius = radius;
 	}
 
 	public Point getLoc() {
@@ -36,9 +44,5 @@ public class SCircle extends Shape {
 		// TODO Auto-generated method stub
 		
 	}
-
-	public void draw(Graphics g) {
-		g.drawOval(loc.x, loc.y, 2*radius, 2*radius);
-	}
-
+	
 }

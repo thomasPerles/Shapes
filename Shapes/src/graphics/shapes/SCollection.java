@@ -49,10 +49,4 @@ public class SCollection extends Shape {
 		// TODO Auto-generated method stub
 		
 	}
-
-	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
