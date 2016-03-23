@@ -19,9 +19,11 @@ public abstract class Shape {
 		attributs.put(a.getId() ,a);
 	}
 	
+	/*
 	public Attributes getAttributes(String key) {
 		return (Attributes) this.getAttributes(key);
 	}
+	*/
 	
 	public abstract Point getLoc();
 	public abstract void setLoc(Point p);

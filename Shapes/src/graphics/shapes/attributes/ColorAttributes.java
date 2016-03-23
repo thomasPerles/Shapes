@@ -20,7 +20,37 @@ public class ColorAttributes extends Attributes {
 	public String getId() {
 		return ID;
 	}
-	
-	
+
+	public boolean isFilled() {
+		return filled;
+	}
+
+	public void setFilled(boolean filled) {
+		this.filled = filled;
+	}
+
+	public boolean isStroked() {
+		return stroked;
+	}
+
+	public void setStroked(boolean stroked) {
+		this.stroked = stroked;
+	}
+
+	public Color getFilledColor() {
+		return filledColor;
+	}
+
+	public void setFilledColor(Color filledColor) {
+		this.filledColor = filledColor;
+	}
+
+	public Color getStrokedColor() {
+		return strokedColor;
+	}
+
+	public void setStrokedColor(Color strokedColor) {
+		this.strokedColor = strokedColor;
+	}
 	
 }

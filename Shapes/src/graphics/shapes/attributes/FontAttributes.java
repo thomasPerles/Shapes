@@ -25,8 +25,10 @@ public class FontAttributes extends Attributes {
 		return FONT_ID;
 	}
 	
+	/*
 	public Rectangle getBounds() {
 		return new Rectangle(font.getSize(), font.);
 	}
-
+	*/
+	
 }

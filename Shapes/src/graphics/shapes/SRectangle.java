@@ -9,7 +9,7 @@ public class SRectangle extends Shape {
 	private Rectangle rect;
 	
 	public SRectangle(int largeur, int longueur) {
-		this.rect = new Rectangle(0, 0, largeur, longueur);
+		this.rect = new Rectangle(0, 0, largeur, longueur);	//x, y, width, height
 	}
 	
 	public SRectangle(Point p, int largeur, int longueur) {
