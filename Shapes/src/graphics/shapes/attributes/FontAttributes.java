@@ -3,8 +3,6 @@ package graphics.shapes.attributes;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Rectangle;
-import java.awt.font.FontRenderContext;
-import java.awt.geom.AffineTransform;
 
 public class FontAttributes extends Attributes {
 
@@ -12,6 +10,16 @@ public class FontAttributes extends Attributes {
 	private Font font;
 	private Color fontColor;
 	private Rectangle bounds;
+	
+	public FontAttributes() {
+		this.font = new Font(Font.MONOSPACED, Font.BOLD, Font.PLAIN);
+		this.fontColor = Color.BLACK;
+	}
+	
+	public FontAttributes(Font font, Color fontColor) {
+		this.font = font;
+		this.fontColor = fontColor;
+	}
 	
 	public Font font() {
 		return this.font;
@@ -27,7 +35,7 @@ public class FontAttributes extends Attributes {
 	
 	/*
 	public Rectangle getBounds() {
-		return new Rectangle(font.getSize(), font.);
+		return bounds;
 	}
 	*/
 	

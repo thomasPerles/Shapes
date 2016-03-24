@@ -29,5 +29,5 @@ public abstract class Shape {
 	public abstract void setLoc(Point p);
 	public abstract void translate(int x, int y);
 	public abstract Rectangle getBounds();
-	public abstract void accept(ShapeVisitor visitor);
+	public abstract void accept(ShapeVisitor visitor, Graphics g);
 }

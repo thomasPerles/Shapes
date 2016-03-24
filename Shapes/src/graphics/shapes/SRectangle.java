@@ -39,7 +39,9 @@ public class SRectangle extends Shape {
 		return this.rect;
 	}
 
-	public void accept(ShapeVisitor visitor) {
+	@Override
+	public void accept(ShapeVisitor visitor, Graphics g) {
 		// TODO Auto-generated method stub
+		
 	}
 }

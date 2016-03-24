@@ -1,5 +1,43 @@
 package graphics.shapes.ui;
 
-public class ShapeDraftman {
+import java.awt.Graphics;
+
+import graphics.shapes.SCircle;
+import graphics.shapes.SCollection;
+import graphics.shapes.SRectangle;
+import graphics.shapes.SText;
+import graphics.shapes.ShapeVisitor;
+
+public class ShapeDraftman implements ShapeVisitor {
+	
+	public static ShapesView shapesView;
+	
+	public ShapeDraftman(ShapesView shapesView) {
+		this.shapesView = shapesView;
+	}
+
+	@Override
+	public void visitRectangle(SRectangle rectangle) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visitCircle(SCircle circle) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visitText(SText text, Graphics g) {
+		g.drawString(text.getText(), 30, 30);
+		
+	}
+
+	@Override
+	public void visitCollection(SCollection collection) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

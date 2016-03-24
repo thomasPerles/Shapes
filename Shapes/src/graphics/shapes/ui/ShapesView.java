@@ -1,25 +1,31 @@
 package graphics.shapes.ui;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.util.Iterator;
+import java.awt.Point;
 
 import graphics.shapes.SCollection;
-import graphics.shapes.SRectangle;
-import graphics.shapes.attributes.ColorAttributes;
+import graphics.shapes.SText;
+import graphics.shapes.Shape;
 import graphics.ui.View;
 
 public class ShapesView extends View{
 	
-	//private Dimension size;
+	private ShapeDraftman draftman;
 	
-	public ShapesView(SCollection model2) {
-		super(model2);
+	public ShapesView(SText model) {
+		super(model);
+		this.draftman = new ShapeDraftman(this);
 	}
 
 	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		SText model = (SText) this.getModel();
+
+		if (model == null)
+			return;
+
+		model.accept(this.draftman, g);
+		this.draftman.visitText(model, g);
 		/*SCollection collections = (SCollection) this.getModel();
 		for (Iterator it = collections.iterator() ; it.hasNext() ; ) {
 			
@@ -36,10 +42,4 @@ public class ShapesView extends View{
 		//g.fillRect(100,  100,  100,  50);
 		
 	}
-	
-	/*
-	public void setPreferredSize(Dimension dim) {
-		this.size = dim;
-	}
-	*/
 }
