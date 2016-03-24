@@ -8,6 +8,10 @@ public class SRectangle extends Shape {
 
 	private Rectangle rect;
 	
+	public SRectangle() {
+		this.rect = new Rectangle (50, 50, 100, 150);
+	}
+	
 	public SRectangle(int largeur, int longueur) {
 		this.rect = new Rectangle(0, 0, largeur, longueur);	//x, y, width, height
 	}
@@ -38,10 +42,8 @@ public class SRectangle extends Shape {
 	public Rectangle getBounds() {
 		return this.rect;
 	}
-
-	@Override
+	
 	public void accept(ShapeVisitor visitor) {
-		// TODO Auto-generated method stub
-		
+		visitor.visitRectangle(this);
 	}
 }

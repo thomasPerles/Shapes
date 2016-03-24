@@ -4,7 +4,7 @@ import java.awt.Color;
 
 public class ColorAttributes extends Attributes {
 	
-	public static String ID = "colors";
+	public static String COLOR_ID = "colors";
 	public boolean filled = false;
 	public boolean stroked = true;
 	public Color filledColor = Color.BLACK;
@@ -18,7 +18,7 @@ public class ColorAttributes extends Attributes {
 	}
 
 	public String getId() {
-		return ID;
+		return COLOR_ID;
 	}
 
 	public boolean isFilled() {

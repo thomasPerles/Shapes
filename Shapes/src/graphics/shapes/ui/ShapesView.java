@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 
 import graphics.shapes.SCollection;
+import graphics.shapes.SRectangle;
 import graphics.shapes.SText;
 import graphics.shapes.Shape;
 import graphics.ui.View;
@@ -12,20 +13,20 @@ public class ShapesView extends View{
 	
 	private ShapeDraftman draftman;
 	
-	public ShapesView(SText model) {
+	public ShapesView(SRectangle model) {
 		super(model);
 	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		this.draftman = new ShapeDraftman(this, g);
-		SText model = (SText) this.getModel();
+		SRectangle model = (SRectangle) this.getModel();
 
 		if (model == null)
 			return;
 
 		model.accept(this.draftman);
-		this.draftman.visitText(model);
+		this.draftman.visitRectangle(model);
 		/*SCollection collections = (SCollection) this.getModel();
 		for (Iterator it = collections.iterator() ; it.hasNext() ; ) {
 			

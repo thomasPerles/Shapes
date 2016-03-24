@@ -40,10 +40,7 @@ public class SCircle extends Shape {
 		return new Rectangle(loc.x, loc.y, 2*radius, 2*radius);
 	}
 
-	@Override
 	public void accept(ShapeVisitor visitor) {
-		// TODO Auto-generated method stub
-		
+		visitor.visitCircle(this);
 	}
-	
 }

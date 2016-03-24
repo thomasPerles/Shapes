@@ -45,9 +45,7 @@ public class SCollection extends Shape {
 		return null;
 	}
 
-	@Override
 	public void accept(ShapeVisitor visitor) {
-		// TODO Auto-generated method stub
-		
+		visitor.visitCollection(this);
 	}
 }

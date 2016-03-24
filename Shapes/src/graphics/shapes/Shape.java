@@ -1,6 +1,5 @@
 package graphics.shapes;
 
-import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.HashMap;
@@ -9,10 +8,10 @@ import graphics.shapes.attributes.Attributes;
 
 public abstract class Shape {
 
-	public HashMap attributs;
+	public HashMap<String, Attributes> attributs;
 	
 	public Shape() {
-		this.attributs = new HashMap();
+		this.attributs = new HashMap<String, Attributes>();
 	}
 	
 	public void addAttributes(Attributes a) {
