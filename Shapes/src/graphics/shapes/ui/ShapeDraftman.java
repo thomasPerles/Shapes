@@ -11,9 +11,11 @@ import graphics.shapes.ShapeVisitor;
 public class ShapeDraftman implements ShapeVisitor {
 	
 	public static ShapesView shapesView;
+	private Graphics g;
 	
-	public ShapeDraftman(ShapesView shapesView) {
+	public ShapeDraftman(ShapesView shapesView, Graphics g) {
 		this.shapesView = shapesView;
+		this.g = g;
 	}
 
 	@Override
@@ -29,7 +31,7 @@ public class ShapeDraftman implements ShapeVisitor {
 	}
 
 	@Override
-	public void visitText(SText text, Graphics g) {
+	public void visitText(SText text) {
 		g.drawString(text.getText(), 30, 30);
 		
 	}

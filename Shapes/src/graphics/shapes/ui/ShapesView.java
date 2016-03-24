@@ -14,18 +14,18 @@ public class ShapesView extends View{
 	
 	public ShapesView(SText model) {
 		super(model);
-		this.draftman = new ShapeDraftman(this);
 	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		this.draftman = new ShapeDraftman(this, g);
 		SText model = (SText) this.getModel();
 
 		if (model == null)
 			return;
 
-		model.accept(this.draftman, g);
-		this.draftman.visitText(model, g);
+		model.accept(this.draftman);
+		this.draftman.visitText(model);
 		/*SCollection collections = (SCollection) this.getModel();
 		for (Iterator it = collections.iterator() ; it.hasNext() ; ) {
 			

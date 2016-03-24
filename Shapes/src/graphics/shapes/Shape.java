@@ -19,15 +19,13 @@ public abstract class Shape {
 		attributs.put(a.getId() ,a);
 	}
 	
-	/*
 	public Attributes getAttributes(String key) {
 		return (Attributes) this.getAttributes(key);
 	}
-	*/
 	
 	public abstract Point getLoc();
 	public abstract void setLoc(Point p);
 	public abstract void translate(int x, int y);
 	public abstract Rectangle getBounds();
-	public abstract void accept(ShapeVisitor visitor, Graphics g);
+	public abstract void accept(ShapeVisitor visitor);
 }

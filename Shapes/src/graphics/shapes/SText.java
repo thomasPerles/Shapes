@@ -56,7 +56,7 @@ public class SText extends Shape {
 		return (Rectangle) bounds;
 	}
 
-	public void accept(ShapeVisitor visitor, Graphics g) {
-		visitor.visitText(this, g);
+	public void accept(ShapeVisitor visitor) {
+		visitor.visitText(this);
 	}
 }

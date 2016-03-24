@@ -46,7 +46,7 @@ public class SCollection extends Shape {
 	}
 
 	@Override
-	public void accept(ShapeVisitor visitor, Graphics g) {
+	public void accept(ShapeVisitor visitor) {
 		// TODO Auto-generated method stub
 		
 	}
