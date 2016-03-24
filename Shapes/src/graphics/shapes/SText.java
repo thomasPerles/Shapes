@@ -2,7 +2,6 @@ package graphics.shapes;
 
 import java.awt.Font;
 import java.awt.FontMetrics;
-import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.font.FontRenderContext;

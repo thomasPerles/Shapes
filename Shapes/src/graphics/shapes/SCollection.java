@@ -1,6 +1,5 @@
 package graphics.shapes;
 
-import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;

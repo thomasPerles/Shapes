@@ -4,9 +4,7 @@ import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SText;
-import graphics.shapes.attributes.ColorAttributes;
-import graphics.shapes.attributes.FontAttributes;
-import graphics.shapes.attributes.SelectionAttributes;
+import graphics.shapes.attributes.*;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,7 +15,7 @@ import javax.swing.JFrame;
 public class Editor extends JFrame
 {
 	ShapesView sview;
-	SRectangle model;
+	SCollection model;
 	
 	public Editor()
 	{	
@@ -41,25 +39,25 @@ public class Editor extends JFrame
 	
 	private void buildModel()
 	{
-		this.model = new SRectangle();
+		this.model = new SCollection();
 		this.model.addAttributes(new SelectionAttributes());
 		
-		SRectangle r = new SRectangle(new Point(10,10),20,30);
+		
+		SRectangle r = new SRectangle(new Point(10,10),200,300);
 		r.addAttributes(new ColorAttributes(true,true,Color.BLUE,Color.BLACK));
 		r.addAttributes(new SelectionAttributes());
-		//this.model.add(r);
+		this.model.add(r);
 		
-		/*SCircle c = new SCircle(new Point(100,100),10);
+		SCircle c = new SCircle(new Point(100,100),10);
 		c.addAttributes(new ColorAttributes(false,true,Color.BLUE,Color.BLUE));
 		c.addAttributes(new SelectionAttributes());
-		//this.model.add(c);
+		this.model.add(c);
 		
 		SText t= new SText(new Point(100,100),"hello");
 		t.addAttributes(new ColorAttributes(true,true,Color.YELLOW,Color.BLUE));
 		t.addAttributes(new FontAttributes());
-		t.addAttributes(new SelectionAttributes());*/
-		
-		//this.model.add(t);
+		t.addAttributes(new SelectionAttributes());
+		this.model.add(t);
 		
 		/*SCollection sc = new SCollection();
 		sc.addAttributes(new SelectionAttributes());

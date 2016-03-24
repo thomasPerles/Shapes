@@ -2,16 +2,16 @@ package graphics.shapes;
 
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.util.HashMap;
+import java.util.TreeMap;
 
 import graphics.shapes.attributes.Attributes;
 
 public abstract class Shape {
 
-	public HashMap<String, Attributes> attributs;
+	public TreeMap<String, Attributes> attributs;
 	
 	public Shape() {
-		this.attributs = new HashMap<String, Attributes>();
+		this.attributs = new TreeMap<String, Attributes>();
 	}
 	
 	public void addAttributes(Attributes a) {
@@ -19,7 +19,7 @@ public abstract class Shape {
 	}
 	
 	public Attributes getAttributes(String key) {
-		return (Attributes) this.getAttributes(key);
+		return (Attributes) this.attributs.get(key);
 	}
 	
 	public abstract Point getLoc();
