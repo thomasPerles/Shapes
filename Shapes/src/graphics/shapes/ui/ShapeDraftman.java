@@ -1,5 +1,7 @@
 package graphics.shapes.ui;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.util.Iterator;
 
@@ -9,7 +11,8 @@ import graphics.shapes.SRectangle;
 import graphics.shapes.SText;
 import graphics.shapes.Shape;
 import graphics.shapes.ShapeVisitor;
-import graphics.shapes.attributes.ColorAttributes;
+import graphics.shapes.attributes.*;
+
 public class ShapeDraftman implements ShapeVisitor {
 	
 	public static ShapesView shapesView;
@@ -22,7 +25,7 @@ public class ShapeDraftman implements ShapeVisitor {
 
 	public void visitRectangle(SRectangle rectangle) {
 		ColorAttributes color = (ColorAttributes) rectangle.getAttributes(ColorAttributes.COLOR_ID);
-		System.out.println(color);
+		//System.out.println(color);
 		if (color.isFilled()) {
 			g.setColor(color.filledColor);
 			g.fillRect(rectangle.getRectangle().x, rectangle.getRectangle().y, rectangle.getRectangle().width, rectangle.getRectangle().height);
@@ -33,18 +36,53 @@ public class ShapeDraftman implements ShapeVisitor {
 		}
 	}
 	
-	public void visitCircle(SCircle circle) {
-		g.drawOval(circle.getBounds().x, circle.getBounds().y, circle.getBounds().width, circle.getBounds().height);
+	public void visitCircle(SCircle cercle) {
+		ColorAttributes color = (ColorAttributes) cercle.getAttributes(ColorAttributes.COLOR_ID);
+		if (color.isFilled()) {
+			g.setColor(color.filledColor);
+			g.fillOval(cercle.getBounds().x, cercle.getBounds().y, cercle.getBounds().width, cercle.getBounds().height);
+		}
+		if (color.isStroked()) {
+			g.setColor(color.strokedColor);
+			g.drawOval(cercle.getBounds().x, cercle.getBounds().y, cercle.getBounds().width, cercle.getBounds().height);
+		}
+		//System.out.println("Bounds : " + cercle.getBounds());
 	}
 	
 	public void visitText(SText text) {
-		g.drawString(text.getText(), 30, 30);
+		ColorAttributes color = (ColorAttributes) text.getAttributes(ColorAttributes.COLOR_ID);
+		if (color.isFilled()) {
+			System.out.println("textisfilled : " + color.isFilled());
+			g.setColor(color.filledColor);
+			System.out.println("TextfilledColor : " + color.filledColor);
+			g.fillRect(text.getBounds().x, text.getBounds().y, text.getBounds().width, text.getBounds().height);
+			System.out.println("textbounds : " + text.getBounds());
+		}
+		if (color.isStroked()) {
+			System.out.println("textisstroked : " + color.isStroked());
+			g.setColor(color.strokedColor);
+			System.out.println("textstrokedcolor : " + color.strokedColor);
+			g.drawRect(text.getBounds().x, text.getBounds().y, text.getBounds().width, text.getBounds().height);
+			System.out.println("textbounds : " + text.getBounds());
+		}
+		
+		FontAttributes font = (FontAttributes) text.getAttributes(FontAttributes.FONT_ID);
+		g.setColor(font.fontColor());
+		System.out.println("fontcolor : " + font.fontColor());
+		//g.drawString(text.getText(), text.getBounds().x, text.getBounds().y + text.getBounds().height);
+		g.setFont(font.font());
+		/*Font currentFont = g.getFont();
+		Font newFont = currentFont.deriveFont(currentFont.getSize() * 1.4F);
+		g.setFont(newFont);*/
+		System.out.println("font : " + font.font());
+		g.drawString(text.getText(), text.getBounds().x, text.getBounds().y + text.getBounds().height);
+		
+		//System.out.println("TextBounds : " + text.getBounds());
+		//g.setColor(Color.BLACK);
+		//g.drawString(text.getText(), 10, 100);
 	}
 	
-	//attention it.next() prend l'élément suivant  =>  à tester
-	
 	public void visitCollection(SCollection collection) {
-		
 		for (Iterator it = collection.iterator(); it.hasNext();) {
 			Shape shape = (Shape) it.next();
 			if (shape.getClass() == SRectangle.class)
@@ -56,6 +94,5 @@ public class ShapeDraftman implements ShapeVisitor {
 			if (shape.getClass() == SCollection.class)
 				this.visitCollection((SCollection) shape);
 		}
-	}
-	
+	}	
 }
