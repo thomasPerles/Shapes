@@ -51,36 +51,34 @@ public class ShapeDraftman implements ShapeVisitor {
 	
 	public void visitText(SText text) {
 		ColorAttributes color = (ColorAttributes) text.getAttributes(ColorAttributes.COLOR_ID);
+		FontAttributes font = (FontAttributes) text.getAttributes(FontAttributes.FONT_ID);
+		g.setFont(font.font());
 		if (color.isFilled()) {
 			System.out.println("textisfilled : " + color.isFilled());
 			g.setColor(color.filledColor);
 			System.out.println("TextfilledColor : " + color.filledColor);
-			g.fillRect(text.getBounds().x, text.getBounds().y, text.getBounds().width, text.getBounds().height);
+			g.fillRect(text.getBounds().x, text.getBounds().y, font.getBounds(text.getText()).width, font.getBounds(text.getText()).height);
+			//g.fillRect(text.getBounds().x, text.getBounds().y, text.getBounds().width, text.getBounds().height);		//a utiliser s'il n'y a pas de fontattributes
 			System.out.println("textbounds : " + text.getBounds());
+			System.out.println("font bounds : " + font.getBounds(text.getText()));
 		}
 		if (color.isStroked()) {
 			System.out.println("textisstroked : " + color.isStroked());
 			g.setColor(color.strokedColor);
 			System.out.println("textstrokedcolor : " + color.strokedColor);
-			g.drawRect(text.getBounds().x, text.getBounds().y, text.getBounds().width, text.getBounds().height);
-			System.out.println("textbounds : " + text.getBounds());
+			g.drawRect(text.getBounds().x, text.getBounds().y, font.getBounds(text.getText()).width, font.getBounds(text.getText()).height);
 		}
 		
-		FontAttributes font = (FontAttributes) text.getAttributes(FontAttributes.FONT_ID);
 		g.setColor(font.fontColor());
 		System.out.println("fontcolor : " + font.fontColor());
 		//g.drawString(text.getText(), text.getBounds().x, text.getBounds().y + text.getBounds().height);
-		g.setFont(font.font());
-		/*Font currentFont = g.getFont();
+		/* multiplie le paramètre size de fontattributes  =>  probleme : la méthode s'applique 2fois
+		Font currentFont = g.getFont();
 		Font newFont = currentFont.deriveFont(currentFont.getSize() * 1.4F);
 		g.setFont(newFont);*/
 		System.out.println("font : " + font.font());
 		g.drawString(text.getText(), text.getBounds().x, text.getBounds().y + text.getBounds().height);
-		
-		//System.out.println("TextBounds : " + text.getBounds());
-		//g.setColor(Color.BLACK);
-		//g.drawString(text.getText(), 10, 100);
-	}
+		}
 	
 	public void visitCollection(SCollection collection) {
 		for (Iterator it = collection.iterator(); it.hasNext();) {

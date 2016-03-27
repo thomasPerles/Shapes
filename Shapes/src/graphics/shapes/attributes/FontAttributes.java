@@ -40,19 +40,17 @@ public class FontAttributes extends Attributes {
 	}
 	
 	public Rectangle getBounds(String s) {
-		/*
-		int width = ShapeDraftman.shapesView.getGraphics().getFontMetrics().stringWidth(s);
-		int height = ShapeDraftman.shapesView.getGraphics().getFontMetrics().getHeight();		//renvoie 16
-		
-		Rectangle rect = new Rectangle(0, 0, width, height);		//comment recuperer le point de reference du texte? 
-		return rect;*/
-		
-		//TODO
-		return (new Rectangle(0, 0, 0, 0));
+		//ShapeDraftman.shapesView.getGraphics().setFont(this.font);		//pb n'est pas pris en compte dans width
+		FontRenderContext context = ShapeDraftman.shapesView.getGraphics().getFontMetrics().getFontRenderContext();
+		//int width = ShapeDraftman.shapesView.getGraphics().getFontMetrics().stringWidth(s);
+		//int height = ShapeDraftman.shapesView.getGraphics().getFontMetrics().getHeight();
+		//Rectangle rect = new Rectangle(0, 0, width, height);
+		return font.getStringBounds(s, context).getBounds();
+		//return rect;
 	}
 	
 	/*public static void main(String[] args) {
-		FontAttributes fa = new FontAttributes(new Font(Font.SERIF, Font.ITALIC, Font.ITALIC), Color.BLUE);
-		fa.getBounds("hello");
+		FontAttributes fa = new FontAttributes(new Font(Font.SERIF, Font.ITALIC, 20), Color.BLUE);
+		System.out.println("fontattributes getbounds : " + fa.getBounds("hello"));
 	}*/
 }

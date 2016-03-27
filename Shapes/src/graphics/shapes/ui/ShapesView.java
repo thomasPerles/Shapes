@@ -14,7 +14,7 @@ public class ShapesView extends View{
 	}
 
 	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
+		//super.paintComponent(g);
 		this.draftman = new ShapeDraftman(this, g);
 		SCollection model = (SCollection) this.getModel();
 
@@ -22,7 +22,7 @@ public class ShapesView extends View{
 			return;
 
 		model.accept(this.draftman);
-		this.draftman.visitCollection(model);
+		//this.draftman.visitCollection(model);
 		/*SCollection collections = (SCollection) this.getModel();
 		for (Iterator it = collections.iterator() ; it.hasNext() ; ) {
 			
