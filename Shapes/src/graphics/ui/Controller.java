@@ -1,10 +1,18 @@
+
 package graphics.ui;
 
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.Iterator;
+
+import graphics.shapes.SCollection;
+import graphics.shapes.Shape;
+import graphics.shapes.attributes.SelectionAttributes;
 
 public class Controller implements MouseListener, MouseMotionListener, KeyListener
 {

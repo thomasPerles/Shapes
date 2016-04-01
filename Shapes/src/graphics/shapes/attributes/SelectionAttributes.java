@@ -5,6 +5,10 @@ public class SelectionAttributes extends Attributes {
 	public static String SELECTION_ID = "selection";
 	private boolean selected;
 	
+	public SelectionAttributes() {
+		this.selected = false;
+	}
+	
 	public String getId() {
 		return SELECTION_ID;
 	}

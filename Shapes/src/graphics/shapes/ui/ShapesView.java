@@ -8,13 +8,16 @@ import graphics.ui.View;
 public class ShapesView extends View{
 	
 	private ShapeDraftman draftman;
+	private ShapesController controller; 
 	
 	public ShapesView(SCollection model) {
 		super(model);
+		this.controller = new ShapesController(model);
+		this.addMouseListener(this.controller);
+		this.controller.setView(this);
 	}
 
 	public void paintComponent(Graphics g) {
-		//super.paintComponent(g);
 		this.draftman = new ShapeDraftman(this, g);
 		SCollection model = (SCollection) this.getModel();
 
@@ -22,21 +25,6 @@ public class ShapesView extends View{
 			return;
 
 		model.accept(this.draftman);
-		//this.draftman.visitCollection(model);
-		/*SCollection collections = (SCollection) this.getModel();
-		for (Iterator it = collections.iterator() ; it.hasNext() ; ) {
-			
-		}
-		ColorAttributes ca = (ColorAttributes) r.getAttributes(ColorAttributes.ID);
-		g.setColor(ca.strokedColor);
-		Rectangle rect = rect.getBounds();
-		g.drawRect(x, y, width, height);*/
-		
-		//g.setColor(Color.RED);
-		//g.drawOval(5, 5, 50, 50);
-		//g.drawString("Hello world !!!!!!!!!!!!!!! ahaha :-D", 60, 60);
-		
-		//g.fillRect(100,  100,  100,  50);
 		
 	}
 }
