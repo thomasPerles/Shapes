@@ -13,17 +13,18 @@ public class ShapesView extends View{
 	public ShapesView(SCollection model) {
 		super(model);
 		this.controller = new ShapesController(model);
-		this.addMouseListener(this.controller);
 		this.controller.setView(this);
+		this.draftman = new ShapeDraftman(this);
+		this.addMouseListener(this.controller);
+		this.addMouseMotionListener(this.controller);
 	}
 
 	public void paintComponent(Graphics g) {
-		this.draftman = new ShapeDraftman(this, g);
+		super.paintComponent(g);
+		this.draftman.setGraphics(g);
 		SCollection model = (SCollection) this.getModel();
-
 		if (model == null)
 			return;
-
 		model.accept(this.draftman);
 		
 	}

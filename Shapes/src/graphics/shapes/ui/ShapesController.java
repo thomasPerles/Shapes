@@ -30,12 +30,15 @@ public class ShapesController extends Controller {
 	public void mouseClicked(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
-		if(getTarget(x,y) != null)
+		Shape s = getTarget(x, y);
+		((SelectionAttributes)s.getAttributes(SelectionAttributes.SELECTION_ID)).toggleSelection();
+		/*if(getTarget(x,y) != null)
 			selectUnselectShape(getTarget(x,y));
-		else unselectAll();
+		else unselectAll();*/
+		this.view.update(this.view.getGraphics());
 	}
 	
-	public void selectUnselectShape(Shape s) {
+	/*public void selectUnselectShape(Shape s) {
 		SelectionAttributes selattrib = (SelectionAttributes)s.getAttributes(SelectionAttributes.SELECTION_ID);
 		Rectangle tmp = s.getBounds();
 		if(selattrib != null) {
@@ -55,7 +58,7 @@ public class ShapesController extends Controller {
 				System.out.println("objet déselectionné " + tmp);
 			}
 		}
-	}
+	}*/
 	
 	public void unselectAll() {
 		for (Iterator it = ((SCollection) this.getModel()).iterator(); it.hasNext(); ) {
