@@ -15,6 +15,9 @@ public class ShapesController extends Controller {
 	private ShapesView view;
 	private boolean move;
 	private boolean shiftDown;
+	private int decx;
+	private int decy;
+	
 	
 	public ShapesController(Object newModel) {
 		super(newModel);
@@ -28,7 +31,7 @@ public class ShapesController extends Controller {
 		for (Iterator it = ((SCollection) this.getModel()).iterator(); it.hasNext(); ) {
 			Shape s = (Shape) it.next();
 			if (((SelectionAttributes)s.getAttributes(SelectionAttributes.SELECTION_ID)).isSelected())
-				s.translate(dx, dy);
+				s.translate(dx - this.decx + s.getBounds().x, dy - this.decy + s.getBounds().y);
 		}
 	}
 	
@@ -81,16 +84,27 @@ public class ShapesController extends Controller {
 	public void mousePressed(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
-		//System.out.println("Mouse pressed : x = " + x + ", y = " + y);
+		System.out.println("Mouse pressed : x = " + x + ", y = " + y);
 		Shape s = getTarget(x, y);
 		SelectionAttributes selection = (SelectionAttributes)s.getAttributes(SelectionAttributes.SELECTION_ID);
-		if ((s != null) && (selection.isSelected()))
+		if ((s != null) && (selection.isSelected())) {
 			this.move = true;
-		else
+			this.decx = x - s.getBounds().x;
+			this.decy = y - s.getBounds().y;
+		} else
 			this.move = false;
 	}
 	
 	public void mouseReleased(MouseEvent e) {
+		Shape s = getTarget(e.getX(), e.getY());
+		if (((SelectionAttributes)s.getAttributes(SelectionAttributes.SELECTION_ID)).isSelected()) {
+			int n = 300;
+			int x = 50;
+			for(int i = 0 ; i < n ; i++) {
+				this.translateSelected(e.getX() - x + ((int) (x*Math.cos(i*2*Math.PI/n))), e.getY() + ((int) (x*Math.sin(i*2*Math.PI/n))));
+				this.view.update(this.view.getGraphics());
+			}
+		}
 	}
 	
 	public void mouseClicked(MouseEvent e) {
@@ -108,25 +122,29 @@ public class ShapesController extends Controller {
 			selectUnselectShape(getTarget(x,y));
 		else
 			unselectAll();*/
-	
+		System.out.println("Mouse clicked : x = " + x + ", y = " + y);
 	}
 	
 	public void mouseEntered(MouseEvent e) {
-		Shape s = getTarget(e.getX(), e.getY());
+		/*Shape s = getTarget(e.getX(), e.getY());
 		if (s != null)
 			System.out.println("mouse entered : " + s.toString());
-	}
+	*/}
 
 	public void mouseExited(MouseEvent e) {
-		System.out.println("mouse exited");
+		//System.out.println("mouse exited");
 	}
 	
 	public void mouseMoved(MouseEvent e) {
 	}
 	
 	public void mouseDragged(MouseEvent e) {
-		if (move)
+		System.out.println("Move " + move);
+		if (move) {
 			this.translateSelected(e.getX(), e.getY());
+			System.out.println("translate selected : " + e.getX() + " " + e.getY());
+			
+		}
 		this.view.update(this.view.getGraphics());
 	}
 	

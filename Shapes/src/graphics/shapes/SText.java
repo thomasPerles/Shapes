@@ -8,6 +8,7 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 
 import graphics.shapes.attributes.FontAttributes;
+import graphics.shapes.attributes.SelectionAttributes;
 import graphics.shapes.ui.ShapeDraftman;
 
 public class SText extends Shape {
@@ -48,12 +49,16 @@ public class SText extends Shape {
 	}
 
 	public Rectangle getBounds() {
-		//cf https://docs.oracle.com/javase/tutorial/2d/text/measuringtext.html
+		/*//cf https://docs.oracle.com/javase/tutorial/2d/text/measuringtext.html
 		int width = ShapeDraftman.shapesView.getGraphics().getFontMetrics().stringWidth(text);
 		int height = ShapeDraftman.shapesView.getGraphics().getFontMetrics().getHeight();		//renvoie 16
 		//int height = ShapeDraftman.shapesView.getGraphics().getFont().getSize();		//renvoie 12
 		Rectangle rect = new Rectangle(this.loc.x, this.loc.y - height, width, height);
 		return rect;
+		*/
+		Rectangle tmp = ((FontAttributes)this.getAttributes(FontAttributes.FONT_ID)).getBounds(this.text);
+		Rectangle rect = new Rectangle(this.loc.x, this.loc.y, tmp.width, tmp.height);
+		return rect; 
 		
 		/* premiere version
 		FontMetrics fontMetrics = ShapeDraftman.shapesView.getGraphics().getFontMetrics();
