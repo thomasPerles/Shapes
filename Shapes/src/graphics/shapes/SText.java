@@ -15,6 +15,8 @@ public class SText extends Shape {
 
 	private String text;
 	private Point loc;
+	public int decx;
+	public int decy;
 	
 	public SText() {
 		this.text = "Hello !!!";

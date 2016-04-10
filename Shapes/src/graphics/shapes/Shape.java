@@ -9,6 +9,8 @@ import graphics.shapes.attributes.Attributes;
 public abstract class Shape {
 
 	public TreeMap<String, Attributes> attributs;
+	public int decx;
+	public int decy;
 	
 	public Shape() {
 		this.attributs = new TreeMap<String, Attributes>();

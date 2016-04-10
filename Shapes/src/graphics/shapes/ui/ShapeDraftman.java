@@ -25,7 +25,6 @@ public class ShapeDraftman implements ShapeVisitor {
 
 	public void visitRectangle(SRectangle rectangle) {
 		ColorAttributes color = (ColorAttributes) rectangle.getAttributes(ColorAttributes.COLOR_ID);
-		//System.out.println(color);
 		selectShape(rectangle);
 		if (color.isFilled()) {
 			g.setColor(color.filledColor);
@@ -48,7 +47,6 @@ public class ShapeDraftman implements ShapeVisitor {
 			g.setColor(color.strokedColor);
 			g.drawOval(cercle.getBounds().x, cercle.getBounds().y, cercle.getBounds().width, cercle.getBounds().height);
 		}
-		//System.out.println("Bounds : " + cercle.getBounds());
 	}
 	
 	public void visitText(SText text) {
@@ -57,29 +55,15 @@ public class ShapeDraftman implements ShapeVisitor {
 		selectShape(text);
 		g.setFont(font.font());
 		if (color.isFilled()) {
-			//System.out.println("textisfilled : " + color.isFilled());
 			g.setColor(color.filledColor);
-			//System.out.println("TextfilledColor : " + color.filledColor);
 			g.fillRect(text.getBounds().x, text.getBounds().y, font.getBounds(text.getText()).width, font.getBounds(text.getText()).height);
-			//g.fillRect(text.getBounds().x, text.getBounds().y, text.getBounds().width, text.getBounds().height);		//a utiliser s'il n'y a pas de fontattributes
-			//System.out.println("textbounds : " + text.getBounds());
-			//System.out.println("font bounds : " + font.getBounds(text.getText()));
 		}
 		if (color.isStroked()) {
-			//System.out.println("textisstroked : " + color.isStroked());
 			g.setColor(color.strokedColor);
-			//System.out.println("textstrokedcolor : " + color.strokedColor);
 			g.drawRect(text.getBounds().x, text.getBounds().y, font.getBounds(text.getText()).width, font.getBounds(text.getText()).height);
 		}
 		
 		g.setColor(font.fontColor());
-		//System.out.println("fontcolor : " + font.fontColor());
-		//g.drawString(text.getText(), text.getBounds().x, text.getBounds().y + text.getBounds().height);
-		/* multiplie le paramètre size de fontattributes  =>  probleme : la méthode s'applique 2fois
-		Font currentFont = g.getFont();
-		Font newFont = currentFont.deriveFont(currentFont.getSize() * 1.4F);
-		g.setFont(newFont);*/
-		//System.out.println("font : " + font.font());
 		g.drawString(text.getText(), text.getBounds().x, text.getBounds().y + text.getBounds().height);
 		}
 	

@@ -8,6 +8,8 @@ import java.util.Iterator;
 public class SCollection extends Shape {
 
 	private ArrayList shapesCollection;
+	public int decx;
+	public int decy;
 	
 	public SCollection() {
 		super();

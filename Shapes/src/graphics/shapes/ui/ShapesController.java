@@ -14,10 +14,6 @@ public class ShapesController extends Controller {
 
 	private ShapesView view;
 	private boolean move;
-	private boolean shiftDown;
-	private int decx;
-	private int decy;
-	
 	
 	public ShapesController(Object newModel) {
 		super(newModel);
@@ -31,7 +27,7 @@ public class ShapesController extends Controller {
 		for (Iterator it = ((SCollection) this.getModel()).iterator(); it.hasNext(); ) {
 			Shape s = (Shape) it.next();
 			if (((SelectionAttributes)s.getAttributes(SelectionAttributes.SELECTION_ID)).isSelected())
-				s.translate(dx - this.decx + s.getBounds().x, dy - this.decy + s.getBounds().y);
+				s.translate(dx - s.decx + s.getBounds().x, dy - s.decy + s.getBounds().y);
 		}
 	}
 	
@@ -55,42 +51,23 @@ public class ShapesController extends Controller {
 		}
 	}
 	
-	public boolean shiftDown() {
-		return shiftDown;
-	}
-
-	/*public void selectUnselectShape(Shape s) {
-		SelectionAttributes selattrib = (SelectionAttributes)s.getAttributes(SelectionAttributes.SELECTION_ID);
-		Rectangle tmp = s.getBounds();
-		if(selattrib != null) {
-			if(!selattrib.isSelected()) {
-				selattrib.select();
-				this.view.getGraphics().setColor(Color.WHITE);
-				this.view.getGraphics().fillRect(tmp.x - 4, tmp.y -4 , 4, 4);
-				//this.view.getGraphics().fillRect(tmp.x + tmp.width, tmp.y + tmp.height, 4, 4);
-				ColorAttributes c = (ColorAttributes) s.getAttributes(ColorAttributes.COLOR_ID);
-				c.setStrokedColor(Color.YELLOW);
-				System.out.println("objet selectionné " + tmp);
-			}
-			else {
-				selattrib.unselect();
-				this.view.getGraphics().clearRect(tmp.x - 4, tmp.y -4 , 4, 4);
-				//this.view.getGraphics().clearRect(tmp.x + tmp.width, tmp.y + tmp.height, 4, 4);
-				System.out.println("objet déselectionné " + tmp);
-			}
-		}
-	}*/
 	
 	public void mousePressed(MouseEvent e) {
+		//System.out.println("Mouse pressed : x = " + x + ", y = " + y);
 		int x = e.getX();
 		int y = e.getY();
-		System.out.println("Mouse pressed : x = " + x + ", y = " + y);
 		Shape s = getTarget(x, y);
 		SelectionAttributes selection = (SelectionAttributes)s.getAttributes(SelectionAttributes.SELECTION_ID);
+		
 		if ((s != null) && (selection.isSelected())) {
 			this.move = true;
-			this.decx = x - s.getBounds().x;
-			this.decy = y - s.getBounds().y;
+			for (Iterator it = ((SCollection) this.getModel()).iterator(); it.hasNext(); ) {
+				Shape s2 = (Shape) it.next();
+				if (((SelectionAttributes)s2.getAttributes(SelectionAttributes.SELECTION_ID)).isSelected()) {
+					s2.decx = x - s2.getBounds().x;
+					s2.decy = y - s2.getBounds().y;
+				}
+			}
 		} else
 			this.move = false;
 	}
@@ -100,7 +77,7 @@ public class ShapesController extends Controller {
 		if (((SelectionAttributes)s.getAttributes(SelectionAttributes.SELECTION_ID)).isSelected()) {
 			int n = 300;
 			int x = 50;
-			for(int i = 0 ; i < n ; i++) {
+			for(int i = 0 ; i < n+1 ; i++) {
 				this.translateSelected(e.getX() - x + ((int) (x*Math.cos(i*2*Math.PI/n))), e.getY() + ((int) (x*Math.sin(i*2*Math.PI/n))));
 				this.view.update(this.view.getGraphics());
 			}
@@ -108,21 +85,17 @@ public class ShapesController extends Controller {
 	}
 	
 	public void mouseClicked(MouseEvent e) {
+		//System.out.println("Mouse clicked : x = " + x + ", y = " + y);
 		int x = e.getX();
 		int y = e.getY();
 		Shape s = getTarget(x, y);
 		
-		if (!this.shiftDown())
+		if (!e.isShiftDown())
 			this.unselectAll();
 		
 		if (s != null)
 			((SelectionAttributes)s.getAttributes(SelectionAttributes.SELECTION_ID)).toggleSelection();
 		this.view.update(this.view.getGraphics());
-		/*if(getTarget(x,y) != null)
-			selectUnselectShape(getTarget(x,y));
-		else
-			unselectAll();*/
-		System.out.println("Mouse clicked : x = " + x + ", y = " + y);
 	}
 	
 	public void mouseEntered(MouseEvent e) {
@@ -139,11 +112,9 @@ public class ShapesController extends Controller {
 	}
 	
 	public void mouseDragged(MouseEvent e) {
-		System.out.println("Move " + move);
+		//System.out.println("Move " + move);
 		if (move) {
 			this.translateSelected(e.getX(), e.getY());
-			System.out.println("translate selected : " + e.getX() + " " + e.getY());
-			
 		}
 		this.view.update(this.view.getGraphics());
 	}

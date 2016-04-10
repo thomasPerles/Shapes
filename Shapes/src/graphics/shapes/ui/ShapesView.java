@@ -17,6 +17,7 @@ public class ShapesView extends View{
 		this.draftman = new ShapeDraftman(this);
 		this.addMouseListener(this.controller);
 		this.addMouseMotionListener(this.controller);
+		this.addKeyListener(this.controller);
 	}
 
 	public void paintComponent(Graphics g) {

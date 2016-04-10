@@ -7,6 +7,8 @@ import java.awt.Rectangle;
 public class SRectangle extends Shape {
 
 	private Rectangle rect;
+	public int decx;
+	public int decy;
 	
 	public SRectangle() {
 		this.rect = new Rectangle (50, 50, 100, 150);
