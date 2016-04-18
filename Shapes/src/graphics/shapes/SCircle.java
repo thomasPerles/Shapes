@@ -1,6 +1,5 @@
 package graphics.shapes;
 
-import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
@@ -10,6 +9,11 @@ public class SCircle extends Shape {
 	private Point loc;	//rayon du cercle
 	public int decx;
 	public int decy;
+	
+	public SCircle() {
+		this.radius = 10;
+		this.loc = new Point(50, 50);
+	}
 	
 	public SCircle(Point point, int radius) {
 		this.radius = radius;

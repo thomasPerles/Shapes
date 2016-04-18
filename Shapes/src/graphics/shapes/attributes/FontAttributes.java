@@ -31,8 +31,16 @@ public class FontAttributes extends Attributes {
 		return this.font;
 	}
 	
+	public void setFont(Font font) {
+		this.font = font;
+	}
+	
 	public Color fontColor() {
 		return this.fontColor;
+	}
+	
+	public void setFontColor(Color fontColor) {
+		this.fontColor = fontColor;
 	}
 	
 	public String getId() {

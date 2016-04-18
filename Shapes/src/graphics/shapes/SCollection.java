@@ -7,16 +7,20 @@ import java.util.Iterator;
 
 public class SCollection extends Shape {
 
-	private ArrayList shapesCollection;
+	private ArrayList<Shape> shapesCollection;
 	public int decx;
 	public int decy;
 	
+	public ArrayList<Shape> getShapesCollection() {
+		return shapesCollection;
+	}
+
 	public SCollection() {
 		super();
-		this.shapesCollection = new ArrayList();
+		this.shapesCollection = new ArrayList<Shape>();
 	}
 	
-	public Iterator iterator() {
+	public Iterator<Shape> iterator() {
 		return(shapesCollection.iterator());
 	}
 	
@@ -24,9 +28,13 @@ public class SCollection extends Shape {
 		this.shapesCollection.add(s);
 	}
 
+	/*public void delete(Shape s) {
+		this.shapesCollection.remove(s);
+	}*/
+	
 	public Point getLoc() {		//renvoie le coin en haut a gauche en prenant les coordonnées min de chaque figure 
 		Point ref = new Point(Integer.MAX_VALUE, Integer.MAX_VALUE);
-		for (Iterator it = iterator(); it.hasNext(); ) {
+		for (Iterator<Shape> it = iterator(); it.hasNext(); ) {
 			Point tmp = ((Shape) it.next()).getLoc();
 			if (tmp.x < ref.x)
 				ref.x = tmp.x;
@@ -36,13 +44,17 @@ public class SCollection extends Shape {
 		return ref;
 	}
 
+	public void setShapesCollection(ArrayList<Shape> shapesCollection) {
+		this.shapesCollection = shapesCollection;
+	}
+
 	public void setLoc(Point p) {		//place toutes les figures au point p
-		for (Iterator it = iterator(); it.hasNext(); )
+		for (Iterator<Shape> it = iterator(); it.hasNext(); )
 			((Shape) it.next()).setLoc(p);
 	}
 
 	public void translate(int x, int y) {
-		for (Iterator it = iterator(); it.hasNext(); )
+		for (Iterator<Shape> it = iterator(); it.hasNext(); )
 			((Shape) it.next()).translate(x,y);
 	}
 
@@ -51,7 +63,7 @@ public class SCollection extends Shape {
 		int xmax = Integer.MIN_VALUE;
 		int ymin = Integer.MAX_VALUE;
 		int ymax = Integer.MIN_VALUE;
-		for (Iterator it = iterator(); it.hasNext(); ) {
+		for (Iterator<Shape> it = iterator(); it.hasNext(); ) {
 			Rectangle tmp = ((Shape) it.next()).getBounds();
 			if (tmp.x < xmin)
 				xmin = tmp.x;

@@ -1,25 +1,47 @@
 package graphics.shapes;
 
-import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
 public class SRectangle extends Shape {
 
 	private Rectangle rect;
+	private int width, height;
 	public int decx;
 	public int decy;
 	
 	public SRectangle() {
-		this.rect = new Rectangle (50, 50, 100, 150);
+		this.width = 150;
+		this.height = 100;
+		this.rect = new Rectangle (50, 50, this.width, this.height);
 	}
 	
 	public SRectangle(int largeur, int longueur) {
-		this.rect = new Rectangle(0, 0, largeur, longueur);	//x, y, width, height
+		this.width = longueur;
+		this.height = largeur;
+		this.rect = new Rectangle(0, 0, this.width, this.height);	//x, y, width, height
+	}
+
+	public SRectangle(Point p, int largeur, int longueur) {
+		this.width = longueur;
+		this.height = largeur;
+		this.rect = new Rectangle(p.x, p.y, this.width, this.height);
 	}
 	
-	public SRectangle(Point p, int largeur, int longueur) {
-		this.rect = new Rectangle(p.x, p.y, largeur, longueur);
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
 	}
 	
 	public Rectangle getRectangle() {
