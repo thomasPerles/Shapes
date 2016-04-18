@@ -141,27 +141,14 @@ public class Editor extends JFrame
 		delete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Shape> tmp = model.getShapesCollection();
-				ArrayList<Shape> tmpToDelete = model.getShapesCollection();
-				for(Shape s : tmp) {
-					SelectionAttributes selection = (SelectionAttributes)s.getAttributes(SelectionAttributes.SELECTION_ID);
-					if(selection.isSelected()) {
-						tmpToDelete.add(s);
-					}
-				}
-				tmp.removeAll(tmpToDelete);
-				model.setShapesCollection(tmp);
-				repaint();
-				//for(int i = model.; i <)
-				/*for(Iterator<Shape> it = model.iterator(); it.hasNext();) {
+				for(Iterator<Shape> it = model.iterator(); it.hasNext();) {
 					Shape s  = (Shape)it.next();
 					SelectionAttributes selection = (SelectionAttributes)s.getAttributes(SelectionAttributes.SELECTION_ID);
 					if(selection.isSelected()) {
-						model.delete(s);
-						System.out.println("Ici concurrence");
+						it.remove();
 					}
 					repaint();
-				}*/
+				}
 			}
 		});
 		this.middleComponnent.add(delete, BorderLayout.PAGE_END);
@@ -396,6 +383,8 @@ public class Editor extends JFrame
 		circleManager.add(panel, BorderLayout.LINE_START);
 		shapesManager.add(circleManager);
 	}
+	
+	public void addListenerColor  (shaep)
 	
 	public void refreshListener() {
 		refresh.addActionListener(new ActionListener() {
