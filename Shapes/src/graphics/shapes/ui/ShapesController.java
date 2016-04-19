@@ -5,7 +5,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.Iterator;
 import graphics.shapes.SCollection;
-import graphics.shapes.SRectangle;
 import graphics.shapes.Shape;
 import graphics.shapes.attributes.SelectionAttributes;
 import graphics.ui.Controller;
@@ -24,7 +23,7 @@ public class ShapesController extends Controller {
 	}
 	
 	public void translateSelected(int dx, int dy) {
-		for (Iterator it = ((SCollection) this.getModel()).iterator(); it.hasNext(); ) {
+		for (Iterator<Shape> it = ((SCollection) this.getModel()).iterator(); it.hasNext(); ) {
 			Shape s = (Shape) it.next();
 			if (((SelectionAttributes)s.getAttributes(SelectionAttributes.SELECTION_ID)).isSelected())
 				s.translate(dx - s.decx + s.getBounds().x, dy - s.decy + s.getBounds().y);
@@ -32,7 +31,7 @@ public class ShapesController extends Controller {
 	}
 	
 	public Shape getTarget(int x, int y) {
-		for (Iterator it = ((SCollection) this.getModel()).iterator(); it.hasNext(); ) {
+		for (Iterator<Shape> it = ((SCollection) this.getModel()).iterator(); it.hasNext(); ) {
 			Shape s = (Shape) it.next();
 			Rectangle tmp = s.getBounds();
 			if ((x > tmp.x) && (x < tmp.x + tmp.width) && (y > tmp.y) && (y < tmp.y + tmp.height)) {
@@ -43,7 +42,7 @@ public class ShapesController extends Controller {
 	}
 	
 	public void unselectAll() {
-		for (Iterator it = ((SCollection) this.getModel()).iterator(); it.hasNext(); ) {
+		for (Iterator<Shape> it = ((SCollection) this.getModel()).iterator(); it.hasNext(); ) {
 			Shape s = (Shape) it.next();
 			((SelectionAttributes)s.getAttributes(SelectionAttributes.SELECTION_ID)).unselect();
 		}
@@ -51,7 +50,6 @@ public class ShapesController extends Controller {
 	
 	
 	public void mousePressed(MouseEvent e) {
-		//System.out.println("Mouse pressed : x = " + x + ", y = " + y);
 		int x = e.getX();
 		int y = e.getY();
 		Shape s = getTarget(x, y);
@@ -60,7 +58,7 @@ public class ShapesController extends Controller {
 			
 			if ((s != null) && (selection.isSelected())) {
 				this.move = true;
-				for (Iterator it = ((SCollection) this.getModel()).iterator(); it.hasNext(); ) {
+				for (Iterator<Shape> it = ((SCollection) this.getModel()).iterator(); it.hasNext(); ) {
 					Shape s2 = (Shape) it.next();
 					if (((SelectionAttributes)s2.getAttributes(SelectionAttributes.SELECTION_ID)).isSelected()) {
 						s2.decx = x - s2.getBounds().x;
@@ -93,7 +91,6 @@ public class ShapesController extends Controller {
 	}
 	
 	public void mouseClicked(MouseEvent e) {
-		//System.out.println("Mouse clicked : x = " + x + ", y = " + y);
 		int x = e.getX();
 		int y = e.getY();
 		Shape s = getTarget(x, y);
@@ -111,20 +108,15 @@ public class ShapesController extends Controller {
 	}
 	
 	public void mouseEntered(MouseEvent e) {
-		/*Shape s = getTarget(e.getX(), e.getY());
-		if (s != null)
-			System.out.println("mouse entered : " + s.toString());
-	*/}
+	}
 
 	public void mouseExited(MouseEvent e) {
-		//System.out.println("mouse exited");
 	}
 	
 	public void mouseMoved(MouseEvent e) {
 	}
 	
 	public void mouseDragged(MouseEvent e) {
-		//System.out.println("Move " + move);
 		if (move) {
 			this.translateSelected(e.getX(), e.getY());
 		}
@@ -132,11 +124,14 @@ public class ShapesController extends Controller {
 	}
 	
 	public void keyTyped(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_F5) System.out.println("J'AI APPUYER SUR F5555555 typed");
 	}
 	
 	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_F5) System.out.println("J'AI APPUYER SUR F5555555 relesaed");
 	}
 
 	public void keyReleased(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_F5) System.out.println("J'AI APPUYER SUR F5555555 pressed");
 	}
 }

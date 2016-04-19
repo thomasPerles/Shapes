@@ -7,8 +7,6 @@ public class SRectangle extends Shape {
 
 	private Rectangle rect;
 	private int width, height;
-	public int decx;
-	public int decy;
 	
 	public SRectangle() {
 		this.width = 150;

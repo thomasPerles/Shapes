@@ -25,7 +25,6 @@ public class ShapeDraftman implements ShapeVisitor {
 	}
 
 	public void visitRectangle(SRectangle rectangle) {
-		//System.out.println("Draw rectangle");
 		ColorAttributes color = (ColorAttributes) rectangle.getAttributes(ColorAttributes.COLOR_ID);
 		selectShape(rectangle);
 		if (color.isFilled()) {
@@ -39,7 +38,6 @@ public class ShapeDraftman implements ShapeVisitor {
 	}
 	
 	public void visitCircle(SCircle cercle) {
-		//System.out.println("Draw circle");
 		ColorAttributes color = (ColorAttributes) cercle.getAttributes(ColorAttributes.COLOR_ID);
 		selectShape(cercle);
 		if (color.isFilled()) {
@@ -53,8 +51,6 @@ public class ShapeDraftman implements ShapeVisitor {
 	}
 	
 	public void visitPolygon(SPolygon polygon) {
-		//g.drawPolygon(new Polygon());
-		//System.out.println("Draw polygone");
 		ColorAttributes color = (ColorAttributes) polygon.getAttributes(ColorAttributes.COLOR_ID);
 		selectShape(polygon);
 		if (color.isFilled()) {
@@ -68,7 +64,6 @@ public class ShapeDraftman implements ShapeVisitor {
 	}
 	
 	public void visitText(SText text) {
-		//System.out.println("Draw Text");
 		ColorAttributes color = (ColorAttributes) text.getAttributes(ColorAttributes.COLOR_ID);
 		FontAttributes font = (FontAttributes) text.getAttributes(FontAttributes.FONT_ID);
 		selectShape(text);
@@ -87,9 +82,8 @@ public class ShapeDraftman implements ShapeVisitor {
 		}
 	
 	public void visitCollection(SCollection collection) {
-		//System.out.println("Draw Collection");
 		selectShape(collection);
-		for (Iterator it = collection.iterator(); it.hasNext();) {
+		for (Iterator<Shape> it = collection.iterator(); it.hasNext();) {
 			Shape shape = (Shape) it.next();
 			if (shape.getClass() == SRectangle.class)
 				this.visitRectangle((SRectangle) shape);

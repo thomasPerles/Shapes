@@ -10,7 +10,6 @@ public class ShapesView extends View{
 	private ShapeDraftman draftman;
 	private ShapesController controller;
 	
-	
 	public ShapesView(SCollection model) {
 		super(model);
 		this.controller = new ShapesController(model);

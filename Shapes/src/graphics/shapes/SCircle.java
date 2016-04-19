@@ -7,8 +7,6 @@ public class SCircle extends Shape {
 
 	private int radius;	//point en haut a gauche
 	private Point loc;	//rayon du cercle
-	public int decx;
-	public int decy;
 	
 	public SCircle() {
 		this.radius = 10;

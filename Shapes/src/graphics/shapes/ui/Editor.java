@@ -16,8 +16,11 @@ import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.nio.file.Paths;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -26,6 +29,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -44,7 +48,8 @@ public class Editor extends JFrame
 	private JPanel leftComponnent, rightComponnent, middleComponnent;
 	private JPanel shapesManager, shapesButton;
 	private JButton refresh, delete;
-	private JTextField textString, widthRectangle, heightRectanlge,  radiusCircle;
+	private JTextField textString;
+	private JFormattedTextField widthRectangle, heightRectanlge,  radiusCircle;
 	private JComboBox<Integer> textSize;
 	private JComboBox<String> textFont;
 	private JButton textColor, textBackgroundColor, strokedRectColor, filledRectColor, strokedCircleColor, filledCircleColor;
@@ -73,8 +78,6 @@ public class Editor extends JFrame
 	}
 	
 	public void buildView() {
-		JSeparator sepLeft=new JSeparator(SwingConstants.VERTICAL);
-		sepLeft.setPreferredSize(new Dimension(1, 10));
 		this.buildLeftComponnent();
 		this.buildMiddleComponnent();
 		middleComponnent.setBorder(BorderFactory.createMatteBorder(0,5,0,5,Color.cyan));
@@ -84,6 +87,23 @@ public class Editor extends JFrame
 		this.add(leftComponnent, BorderLayout.LINE_START);
 		this.add(middleComponnent, BorderLayout.CENTER);
 		this.add(rightComponnent, BorderLayout.LINE_END);
+		
+		this.getContentPane().addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {		
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_F5) refresh.doClick();
+				if (e.getKeyCode() == KeyEvent.VK_DELETE) delete.doClick();
+			}
+		});
 	}
 	
 	/**
@@ -96,7 +116,7 @@ public class Editor extends JFrame
 		this.buildShapesManager();
 		this.leftComponnent.add(shapesButton, BorderLayout.PAGE_START);
 		this.leftComponnent.add(shapesManager);
-		refresh = new JButton("Refresh");
+		refresh = new JButton("Refresh (F5)");
 		refreshListener();
 		this.leftComponnent.add(refresh, BorderLayout.PAGE_END);
 		
@@ -136,7 +156,7 @@ public class Editor extends JFrame
 		this.middleComponnent = new JPanel();
 		middleComponnent.setLayout(new BorderLayout());
 		this.middleComponnent.add(this.sview);
-		delete = new JButton("Supprimer");
+		delete = new JButton("Delete (suppr)");
 		delete.setSize(new Dimension(50, 50));
 		delete.addActionListener(new ActionListener() {
 			@Override
@@ -235,30 +255,30 @@ public class Editor extends JFrame
 		buildCircleManager(this.shapesManager);
 	}
 	
+	//rajouter keylistener pour tous les composants
 	public void buildTextManager(JPanel shapesManager) {
 		JPanel textManager = new JPanel();
 		textManager.setLayout(new BorderLayout());
 		
-		JPanel panel = new JPanel();
-		panel.setBorder(BorderFactory.createTitledBorder("Text"));
-		panel.setLayout(new GridLayout(5, 2));
+		textManager.setBorder(BorderFactory.createTitledBorder("Text"));
+		textManager.setLayout(new GridLayout(5, 2));
 		
-		panel.add(new JLabel("Text : "));
-		textString = new JTextField(); panel.add(textString);
+		textManager.add(new JLabel("Text : "));
+		textString = new JTextField(); textManager.add(textString);
 		
-		panel.add(new JLabel("Font : "));
+		textManager.add(new JLabel("Font : "));
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		String[] fonts = ge.getAvailableFontFamilyNames();
-		textFont = new JComboBox<>(fonts); panel.add(textFont);
+		textFont = new JComboBox<>(fonts); textManager.add(textFont);
 		
-		panel.add(new JLabel("Size : "));
-		Integer[] sizes = new Integer[35]; sizes[0] = 8;
-		for(int i = 1; i <= 34; i++) {
+		textManager.add(new JLabel("Size : "));
+		Integer[] sizes = new Integer[101]; sizes[0] = 12;
+		for(int i = 1; i <= 100; i++) {
 			sizes[i] = sizes[i-1] + 1;
 		}
-		textSize = new JComboBox<>(sizes); panel.add(textSize);
+		textSize = new JComboBox<>(sizes); textManager.add(textSize);
 		
-		panel.add(new JLabel("Stroked color : "));
+		textManager.add(new JLabel("Stroked color : "));
 		textColor = new JButton();
 		textColor.addActionListener(new ActionListener() {
 			@Override
@@ -270,9 +290,9 @@ public class Editor extends JFrame
 		          textColor.setBackground(background);
 		        }
 			}
-		}); panel.add(textColor);
+		}); textManager.add(textColor);
 		
-		panel.add(new JLabel("Filled color : "));
+		textManager.add(new JLabel("Filled color : "));
 		textBackgroundColor = new JButton();
 		textBackgroundColor.addActionListener(new ActionListener() {
 			@Override
@@ -284,9 +304,8 @@ public class Editor extends JFrame
 		        	textBackgroundColor.setBackground(background);
 		        }
 			}
-		}); panel.add(textBackgroundColor);
+		}); textManager.add(textBackgroundColor);
 
-		textManager.add(panel, BorderLayout.LINE_START);
 		shapesManager.add(textManager);
 	}
 	
@@ -299,11 +318,11 @@ public class Editor extends JFrame
 		panel.setLayout(new GridLayout(4, 2));
 		
 		panel.add(new JLabel("Width : "));
-		widthRectangle = new JTextField();
+		widthRectangle = new JFormattedTextField(NumberFormat.INTEGER_FIELD);
 		panel.add(widthRectangle);
 		
 		panel.add(new JLabel("Height : "));
-		heightRectanlge = new JTextField();
+		heightRectanlge = new JFormattedTextField(NumberFormat.INTEGER_FIELD);
 		panel.add(heightRectanlge);
 		
 		panel.add(new JLabel("Stroked color : "));
@@ -347,7 +366,7 @@ public class Editor extends JFrame
 		panel.setLayout(new GridLayout(3, 2));
 
 		panel.add(new JLabel("Radius : "));
-		radiusCircle = new JTextField();
+		radiusCircle = new JFormattedTextField(NumberFormat.INTEGER_FIELD);
 		panel.add(radiusCircle);
 		
 		panel.add(new JLabel("Stroked color : "));
@@ -384,7 +403,7 @@ public class Editor extends JFrame
 		shapesManager.add(circleManager);
 	}
 	
-	public void addListenerColor  (shaep)
+	//public void addListenerColor  (shaep)
 	
 	public void refreshListener() {
 		refresh.addActionListener(new ActionListener() {

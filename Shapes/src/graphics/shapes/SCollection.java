@@ -8,8 +8,6 @@ import java.util.Iterator;
 public class SCollection extends Shape {
 
 	private ArrayList<Shape> shapesCollection;
-	public int decx;
-	public int decy;
 	
 	public ArrayList<Shape> getShapesCollection() {
 		return shapesCollection;
@@ -27,10 +25,6 @@ public class SCollection extends Shape {
 	public void add(Shape s) {
 		this.shapesCollection.add(s);
 	}
-
-	/*public void delete(Shape s) {
-		this.shapesCollection.remove(s);
-	}*/
 	
 	public Point getLoc() {		//renvoie le coin en haut a gauche en prenant les coordonnées min de chaque figure 
 		Point ref = new Point(Integer.MAX_VALUE, Integer.MAX_VALUE);

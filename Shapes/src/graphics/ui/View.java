@@ -39,5 +39,3 @@ public abstract class View extends JPanel
 		return this.controller;
 	}
 }
-
-

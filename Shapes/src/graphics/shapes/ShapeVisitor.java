@@ -1,7 +1,5 @@
 package graphics.shapes;
 
-import java.awt.Graphics;
-
 public interface ShapeVisitor {
 	
 	public void visitRectangle(SRectangle rectangle);
