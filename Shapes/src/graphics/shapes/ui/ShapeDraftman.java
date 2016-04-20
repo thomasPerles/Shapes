@@ -85,7 +85,7 @@ public class ShapeDraftman implements ShapeVisitor {
 		selectShape(collection);
 		for (Iterator<Shape> it = collection.iterator(); it.hasNext();) {
 			Shape shape = (Shape) it.next();
-			if (shape.getClass() == SRectangle.class)
+			/*if (shape.getClass() == SRectangle.class)
 				this.visitRectangle((SRectangle) shape);
 			if (shape.getClass() == SCircle.class)
 				this.visitCircle((SCircle) shape);
@@ -94,7 +94,8 @@ public class ShapeDraftman implements ShapeVisitor {
 			if (shape.getClass() == SPolygon.class)
 				this.visitPolygon((SPolygon) shape);
 			if (shape.getClass() == SCollection.class)
-				this.visitCollection((SCollection) shape);
+				this.visitCollection((SCollection) shape);*/
+			shape.accept(this);
 		}
 	}	
 	

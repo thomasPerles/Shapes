@@ -3,8 +3,11 @@ package graphics.shapes.attributes;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.font.FontRenderContext;
+import java.awt.image.BufferedImage;
+
 import graphics.shapes.SCircle;
 import graphics.shapes.ui.Editor;
 import graphics.shapes.ui.ShapeDraftman;
@@ -45,8 +48,11 @@ public class FontAttributes extends Attributes {
 		return FONT_ID;
 	}
 	
+	public static final Graphics2D DEFAULT_GRAPHICS = (Graphics2D) new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB).getGraphics();
+	
 	public Rectangle getBounds(String s) {
-		FontRenderContext context = ShapeDraftman.shapesView.getGraphics().getFontMetrics().getFontRenderContext();
+		//FontRenderContext context = ShapeDraftman.shapesView.getGraphics().getFontMetrics().getFontRenderContext();
+		FontRenderContext context = DEFAULT_GRAPHICS.getFontRenderContext();
 		return font.getStringBounds(s, context).getBounds();
 	}
 }

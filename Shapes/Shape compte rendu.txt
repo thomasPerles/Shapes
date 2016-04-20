@@ -1,0 +1,26 @@
+Compte rendu du TD Shape
+vendredi 13 mai 2016 passage dans le bureau de M Perrone
+
+exigences :
+projet qui fonctionne (pas encore en exécutable)
+extension de notre choix
+rapport 2 feuilles doubles par binôme sur support papier (dactilographié, ...)
+intention, but, intro, point de départ, spécification, ce qu'on va faire, comment on s'y prend, explication, 
+comment nous le ferions (dans notre langue), puis traduire en java
+connaissances générales
+(ergonomie)
+
+/ = fait
+
+/shape
+/fill puis stroked
+/drawhandler(shape)
+
+/visitCollection
+/pour tous les éléments visiteur visite
+
+sélection d'une collection
+utiliser l'union de rectangle (getbounds)
+
+gettarget
+possibilité d'utiliser le "contains"
