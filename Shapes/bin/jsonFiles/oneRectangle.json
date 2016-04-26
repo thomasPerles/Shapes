@@ -1,0 +1,17 @@
+{
+	"shapes" : [
+		{
+			"class" : "Rectangle",
+			"prop" : {
+				"width" : 150,
+				"height" : 40
+			},
+			"color" : {
+				"filled" : "true",
+				"stroked" : "true",
+				"filledColor" : "#ffffff",
+				"strokedColor" : "#000000"
+			}
+		}
+	]
+}

@@ -40,6 +40,8 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import extension.ShapesJson;
+
 @SuppressWarnings("serial")
 public class Editor extends JFrame
 {
@@ -140,13 +142,16 @@ public class Editor extends JFrame
 			public void valueChanged(ListSelectionEvent e) {
 				String filename = liste.getSelectedValue();
 				fileToShapes(filename);
-				
+				repaint();
 			}
 		});
 		this.rightComponnent.add(liste);
 	}
 	
 	public void fileToShapes(String filename) {
+		ShapesJson json = new ShapesJson();
+		SCollection newCollection = json.readShapesFromJson("src/jsonFiles/"+filename);
+		this.model.setShapesCollection(newCollection.getShapesCollection());
 	}
 	
 	/**
@@ -487,5 +492,7 @@ public class Editor extends JFrame
 		self.pack();
 		self.setVisible(true);
 		self.setLocationRelativeTo(null);
+		ShapesJson jsonShapes = new ShapesJson();
+		jsonShapes.readShapesFromJson("src/jsonFiles/oneRectangle.json");
 	}
 }
