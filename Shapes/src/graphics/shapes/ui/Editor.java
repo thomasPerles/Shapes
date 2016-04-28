@@ -478,7 +478,7 @@ public class Editor extends JFrame
 	}
 	
 	/**
-	 * Création du model : innitialisation de la SCollection
+	 * Création du model : initialisation de la SCollection
 	 */
 	private void buildModel()
 	{
@@ -494,5 +494,6 @@ public class Editor extends JFrame
 		self.setLocationRelativeTo(null);
 		ShapesJson jsonShapes = new ShapesJson();
 		jsonShapes.readShapesFromJson("src/jsonFiles/oneRectangle.json");
+		jsonShapes.readShapesFromJson("src/jsonFiles/oneCercle.json");
 	}
 }

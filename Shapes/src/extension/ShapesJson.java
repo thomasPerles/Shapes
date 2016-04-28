@@ -1,6 +1,7 @@
 package extension;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
 import graphics.shapes.SRectangle;
 import graphics.shapes.Shape;
@@ -36,6 +38,9 @@ public class ShapesJson {
 		                case "Rectangle":
 		                    shapeToSave = this.createRectangle(shapeTmp);
 		                    break;
+		                case "Cercle":
+		                	shapeToSave = this.createCercle(shapeTmp);
+		                	break;
 	                }
 	                shapes.add(shapeToSave);
 	                fileToCollection.setShapesCollection(shapes);
@@ -67,5 +72,24 @@ public class ShapesJson {
 		
 		//System.out.println("width : " + width + " height : " + height + " filled : " + filled +" "+ filledColor + " " + strokedColor);
 		return rectangle;
+	}
+	
+	public Shape createCercle(JSONObject shapeTmp) {
+		int radius = Integer.parseInt(((JSONObject)shapeTmp.get("prop")).get("radius").toString());
+		Point loc = new Point(Integer.parseInt(((JSONObject)shapeTmp.get("prop")).get("x").toString()), Integer.parseInt(((JSONObject)shapeTmp.get("prop")).get("y").toString()));
+		
+		boolean filled = Boolean.parseBoolean(((JSONObject)shapeTmp.get("color")).get("filled").toString());
+		boolean stroked = Boolean.parseBoolean(((JSONObject)shapeTmp.get("color")).get("stroked").toString());
+		String filledColorString = ((JSONObject)shapeTmp.get("color")).get("filledColor").toString();
+		Color filledColor = Color.decode(filledColorString);
+		String strokedColorString = ((JSONObject)shapeTmp.get("color")).get("strokedColor").toString();
+		Color strokedColor = Color.decode(strokedColorString);
+		
+		ColorAttributes colorAttributes = new ColorAttributes(filled, stroked, filledColor, strokedColor);
+		SCircle cercle = new SCircle(/*new Point(100, 100)*/loc, radius);
+		
+		cercle.addAttributes(colorAttributes);
+		cercle.addAttributes(new SelectionAttributes());
+		return cercle;
 	}
 }
