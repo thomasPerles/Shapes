@@ -1,0 +1,31 @@
+{
+	"shapes" : [
+		{
+			"class" : "Cercle",
+			"prop" : {
+				"radius" : 50,
+				"x" : 100,
+				"y" : 100
+			},
+			"color" : {
+				"filled" : "true",
+				"stroked" : "true",
+				"filledColor" : "#e0e0e0",
+				"strokedColor" : "#ff0000"
+			}
+		},{
+			"class" : "Cercle",
+			"prop" : {
+				"radius" : 50,
+				"x" : 150,
+				"y" : 190
+			},
+			"color" : {
+				"filled" : "true",
+				"stroked" : "true",
+				"filledColor" : "#e0e0e0",
+				"strokedColor" : "#ff0000"
+			}
+		}
+	]
+}

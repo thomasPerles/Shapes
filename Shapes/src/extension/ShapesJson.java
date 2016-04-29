@@ -132,20 +132,22 @@ public class ShapesJson {
 	
 	public Shape createCollection(JSONObject shapeTmp) {
 		SCollection collection = new SCollection();
-		while (shapeTmp.get("shapesCollection").toString() == "class") {
+		//while (shapeTmp.get("shapesCollection").toString() == "class") {
+		for (int i = 0; i < shapeTmp.size(); i++) {
+			JSONObject shapeTmp2 = (JSONObject) shapeTmp.get(i);
 			Shape shapeToSave = null;
-            switch (shapeTmp.get("class").toString()) {
+            switch (shapeTmp2.get("class").toString()) {
 	        	case "Rectangle":
-	        		shapeToSave = this.createRectangle(shapeTmp);
+	        		shapeToSave = this.createRectangle(shapeTmp2);
 	        		break;
 	            case "Cercle":
-	            	shapeToSave = this.createCercle(shapeTmp);
+	            	shapeToSave = this.createCercle(shapeTmp2);
 	            	break;
 	            case "Texte":
-	            	shapeToSave = this.createTexte(shapeTmp);
+	            	shapeToSave = this.createTexte(shapeTmp2);
 	            	break;
 	            case "Collection":
-	            	shapeToSave = this.createCollection(shapeTmp);
+	            	shapeToSave = this.createCollection(shapeTmp2);
 	            	break;
             }
             collection.add(shapeToSave);

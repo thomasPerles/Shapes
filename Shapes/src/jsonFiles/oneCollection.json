@@ -2,7 +2,8 @@
 	"shapes" : [
 		{
 			"class" : "Collection",
-			"shapesCollection" : {
+			"shapesCollection" : [
+			{
 				"class" : "Cercle",
 				"prop" : {
 					"radius" : 50,
@@ -46,7 +47,7 @@
 					"size" : 50,
 					"color" : "#0000ff"
 				}
-			}
+			}]
 		}
 	]
 }
