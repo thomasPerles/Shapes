@@ -495,5 +495,7 @@ public class Editor extends JFrame
 		ShapesJson jsonShapes = new ShapesJson();
 		jsonShapes.readShapesFromJson("src/jsonFiles/oneRectangle.json");
 		jsonShapes.readShapesFromJson("src/jsonFiles/oneCercle.json");
+		jsonShapes.readShapesFromJson("src/jsonFiles/oneTexte.json");
+		jsonShapes.readShapesFromJson("src/jsonFiles/oneCollection.json");
 	}
 }
