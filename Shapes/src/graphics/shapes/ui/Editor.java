@@ -49,7 +49,7 @@ public class Editor extends JFrame
 	SCollection model;
 	private JPanel leftComponnent, rightComponnent, middleComponnent;
 	private JPanel shapesManager, shapesButton;
-	private JButton refresh, delete;
+	private JButton refresh, delete, save;
 	private JTextField textString;
 	private JFormattedTextField widthRectangle, heightRectanlge,  radiusCircle;
 	private JComboBox<Integer> textSize;
@@ -161,6 +161,10 @@ public class Editor extends JFrame
 		this.middleComponnent = new JPanel();
 		middleComponnent.setLayout(new BorderLayout());
 		this.middleComponnent.add(this.sview);
+		
+		JPanel middleButtons = new JPanel();
+		middleButtons.setLayout(new GridLayout(1, 2));
+
 		delete = new JButton("Delete (suppr)");
 		delete.setSize(new Dimension(50, 50));
 		delete.addActionListener(new ActionListener() {
@@ -176,7 +180,19 @@ public class Editor extends JFrame
 				}
 			}
 		});
-		this.middleComponnent.add(delete, BorderLayout.PAGE_END);
+		middleButtons.add(delete);
+		
+		save = new JButton("Save (CTRL+S)");
+		save.setSize(new Dimension(50, 50));
+		save.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// Enregistrement
+			}
+		});
+		middleButtons.add(save);
+		
+		this.middleComponnent.add(middleButtons, BorderLayout.PAGE_END);
 	}	
 	
 	/**

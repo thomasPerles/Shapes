@@ -13,7 +13,9 @@
 				"filledColor" : "#e0e0e0",
 				"strokedColor" : "#ff0000"
 			}
-		},{
+		},
+		
+		{
 			"class" : "Cercle",
 			"prop" : {
 				"radius" : 50,

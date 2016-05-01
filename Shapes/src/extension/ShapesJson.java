@@ -133,8 +133,13 @@ public class ShapesJson {
 	public Shape createCollection(JSONObject shapeTmp) {
 		SCollection collection = new SCollection();
 		//while (shapeTmp.get("shapesCollection").toString() == "class") {
-		for (int i = 0; i < shapeTmp.size(); i++) {
-			JSONObject shapeTmp2 = (JSONObject) shapeTmp.get(i);
+
+		//System.out.println("class de shapesTmp "+shapeTmp.get("class").toString());
+		JSONArray shapeArray2 = (JSONArray) shapeTmp.get("shapes");
+		for (int i = 0; i < shapeArray2.size(); i++) {
+			//System.out.println("boucle for");
+			JSONObject shapeTmp2 = (JSONObject) shapeArray2.get(i);
+			System.out.println("class de shapesTmp2 "+shapeTmp2.get("class").toString());
 			Shape shapeToSave = null;
             switch (shapeTmp2.get("class").toString()) {
 	        	case "Rectangle":
@@ -150,6 +155,7 @@ public class ShapesJson {
 	            	shapeToSave = this.createCollection(shapeTmp2);
 	            	break;
             }
+            collection.addAttributes(new SelectionAttributes());
             collection.add(shapeToSave);
 		}
 		return collection;
