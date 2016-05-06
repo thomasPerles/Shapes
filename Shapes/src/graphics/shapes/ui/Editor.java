@@ -2,6 +2,7 @@ package graphics.shapes.ui;
 
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
+import graphics.shapes.SPolygon;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SText;
 import graphics.shapes.Shape;
@@ -21,7 +22,6 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.nio.file.Paths;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.BorderFactory;
@@ -34,9 +34,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -51,10 +49,11 @@ public class Editor extends JFrame
 	private JPanel shapesManager, shapesButton;
 	private JButton refresh, delete, save;
 	private JTextField textString;
-	private JFormattedTextField widthRectangle, heightRectanlge,  radiusCircle;
-	private JComboBox<Integer> textSize;
-	private JComboBox<String> textFont;
-	private JButton textColor, textBackgroundColor, strokedRectColor, filledRectColor, strokedCircleColor, filledCircleColor;
+	private JFormattedTextField widthRectangle, heightRectanlge, radiusCircle, nbpoints, x[], y[];
+	private JComboBox<Integer> fontSize;
+	private JComboBox<String> fontName;
+	//private JComboBox<Font> fontStyle;
+	private JButton fontColor, textStrokedColor, textFilledColor, strokedRectColor, filledRectColor, strokedCircleColor, filledCircleColor, strokedPolygonColor, filledPolygonColor;
 	
 	public Editor()
 	{	
@@ -204,7 +203,7 @@ public class Editor extends JFrame
 		shapesButton.setLayout(new FlowLayout());		
 		
 		JButton bText = new JButton("Text");
-		bText.setPreferredSize(new Dimension(100,100));
+		bText.setPreferredSize(new Dimension(100,50));
 		bText.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -221,7 +220,7 @@ public class Editor extends JFrame
 		/*ImageIcon rectangleIcon = new ImageIcon(Paths.get("").toAbsolutePath().toString()+"/src/rectangle.jpg");
 		JButton bRectangle = new JButton(rectangleIcon);*/ // Pour rajouter une image aux bouttons
 		JButton bRectangle = new JButton("Rectangle");
-		bRectangle.setPreferredSize(new Dimension(100,100));
+		bRectangle.setPreferredSize(new Dimension(100,50));
 		bRectangle.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -234,7 +233,7 @@ public class Editor extends JFrame
 		});
 		
 		JButton bCircle = new JButton("Circle");
-		bCircle.setPreferredSize(new Dimension(100,100));
+		bCircle.setPreferredSize(new Dimension(100,50));
 		bCircle.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -246,23 +245,23 @@ public class Editor extends JFrame
 			}
 		});
 
-		/*JButton bPolygon = new JButton("Polygon");
-		bPolygon.setSize(new Dimension(50, 50));
+		JButton bPolygon = new JButton("Polygon");
+		bPolygon.setPreferredSize(new Dimension(100, 50));
 		bPolygon.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				SPolygon tmp = new SPolygon();
-				tmp.addAttributes(defaultSelection);
-				tmp.addAttributes(defaultColor);
+				tmp.addAttributes(new SelectionAttributes());
+				tmp.addAttributes(new ColorAttributes(true,true,Color.GREEN,Color.BLUE));
 				model.add(tmp);
 				repaint();
 			}
-		});*/
+		});
 		
 		shapesButton.add(bText);
 		shapesButton.add(bRectangle);
 		shapesButton.add(bCircle);
-		//shapesButton.add(bPolygon);
+		shapesButton.add(bPolygon);
 	}
 	
 	/**
@@ -270,158 +269,243 @@ public class Editor extends JFrame
 	 */
 	public void buildShapesManager() {
 		this.shapesManager = new JPanel();
-		this.shapesManager.setLayout(new GridLayout(3, 1));
+		this.shapesManager.setLayout(new GridLayout(4, 1));
 		buildTextManager(this.shapesManager);
 		buildRectangleManager(this.shapesManager);
 		buildCircleManager(this.shapesManager);
+		buildPolygonManager(this.shapesManager);
 	}
 	
-	//rajouter keylistener pour tous les composants
+	//TODO//rajouter keylistener pour tous les composants
 	public void buildTextManager(JPanel shapesManager) {
 		JPanel textManager = new JPanel();
-		textManager.setLayout(new BorderLayout());
-		
 		textManager.setBorder(BorderFactory.createTitledBorder("Text"));
-		textManager.setLayout(new GridLayout(5, 2));
+		textManager.setLayout(new GridLayout(6, 2));
 		
 		textManager.add(new JLabel("Text : "));
-		textString = new JTextField(); textManager.add(textString);
+		textString = new JTextField();
+		textManager.add(textString);
 		
-		textManager.add(new JLabel("Font : "));
+		textManager.add(new JLabel("Font name: "));		//pb : on ne définit pas le style de font
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		String[] fonts = ge.getAvailableFontFamilyNames();
-		textFont = new JComboBox<>(fonts); textManager.add(textFont);
+		fontName = new JComboBox<>(fonts);
+		textManager.add(fontName);
 		
-		textManager.add(new JLabel("Size : "));
+		//pour changer le style d'un JTextField "field" : field.setFont(field.getFont().deriveFont(Font.BOLD | Font.ITALIC));
+		
+		/*		enlever aussi le commentaire dans les attributs : private JComboBox<Font> fontStyle;
+		 * 		déforme le leftComponent 
+		textManager.add(new JLabel("Font name and style: "));
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		Font[] styles = ge.getAllFonts();
+		fontStyle = new JComboBox<>(styles);
+		textManager.add(fontStyle);
+		*/
+		textManager.add(new JLabel("Font size : "));
 		Integer[] sizes = new Integer[101]; sizes[0] = 12;
 		for(int i = 1; i <= 100; i++) {
 			sizes[i] = sizes[i-1] + 1;
 		}
-		textSize = new JComboBox<>(sizes); textManager.add(textSize);
+		fontSize = new JComboBox<>(sizes);
+		textManager.add(fontSize);
+		
+		textManager.add(new JLabel("Font color : "));
+		fontColor = new JButton();
+		fontColor.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Color initialBackground = fontColor.getBackground();
+				Color background = JColorChooser.showDialog(null, "Font color for text", initialBackground);
+				if (background != null) {
+					fontColor.setBackground(background);
+		        }
+			}
+		});
+		textManager.add(fontColor);
 		
 		textManager.add(new JLabel("Stroked color : "));
-		textColor = new JButton();
-		textColor.addActionListener(new ActionListener() {
+		textStrokedColor = new JButton();
+		textStrokedColor.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Color initialBackground = textColor.getBackground();
-		        Color background = JColorChooser.showDialog(null, "Font color for text",
-		            initialBackground);
+				Color initialBackground = textStrokedColor.getBackground();
+		        Color background = JColorChooser.showDialog(null, "Stroked color for text", initialBackground);
 		        if (background != null) {
-		          textColor.setBackground(background);
+		          textStrokedColor.setBackground(background);
 		        }
 			}
-		}); textManager.add(textColor);
+		});
+		textManager.add(textStrokedColor);
 		
 		textManager.add(new JLabel("Filled color : "));
-		textBackgroundColor = new JButton();
-		textBackgroundColor.addActionListener(new ActionListener() {
+		textFilledColor = new JButton();
+		textFilledColor.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Color initialBackground = textBackgroundColor.getBackground();
-		        Color background = JColorChooser.showDialog(null, "Background color for text",
-		            initialBackground);
+				Color initialBackground = textFilledColor.getBackground();
+		        Color background = JColorChooser.showDialog(null, "Background color for text", initialBackground);
 		        if (background != null) {
-		        	textBackgroundColor.setBackground(background);
+		        	textFilledColor.setBackground(background);
 		        }
 			}
-		}); textManager.add(textBackgroundColor);
+		});
+		textManager.add(textFilledColor);
 
 		shapesManager.add(textManager);
 	}
 	
 	public void buildRectangleManager(JPanel shapesManager) {
 		JPanel rectangleManager = new JPanel();
-		rectangleManager.setLayout(new BorderLayout());
+		rectangleManager.setBorder(BorderFactory.createTitledBorder("Rectangle"));
+		rectangleManager.setLayout(new GridLayout(4, 2));
 		
-		JPanel panel = new JPanel();
-		panel.setBorder(BorderFactory.createTitledBorder("Rectangle"));
-		panel.setLayout(new GridLayout(4, 2));
-		
-		panel.add(new JLabel("Width : "));
+		rectangleManager.add(new JLabel("Width : "));
 		widthRectangle = new JFormattedTextField(NumberFormat.INTEGER_FIELD);
-		panel.add(widthRectangle);
+		rectangleManager.add(widthRectangle);
 		
-		panel.add(new JLabel("Height : "));
+		rectangleManager.add(new JLabel("Height : "));
 		heightRectanlge = new JFormattedTextField(NumberFormat.INTEGER_FIELD);
-		panel.add(heightRectanlge);
+		rectangleManager.add(heightRectanlge);
 		
-		panel.add(new JLabel("Stroked color : "));
+		rectangleManager.add(new JLabel("Stroked color : "));
 		strokedRectColor = new JButton();
 		strokedRectColor.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Color initialBackground = strokedRectColor.getBackground();
-		        Color background = JColorChooser.showDialog(null, "Stroked color for Rectanlge",
-		            initialBackground);
+		        Color background = JColorChooser.showDialog(null, "Stroked color for Rectangle", initialBackground);
 		        if (background != null) {
 		        	strokedRectColor.setBackground(background);
 		        }
 			}
-		}); panel.add(strokedRectColor);
+		});
+		rectangleManager.add(strokedRectColor);
 		
-		panel.add(new JLabel("Filled color : "));
+		rectangleManager.add(new JLabel("Filled color : "));
 		filledRectColor = new JButton();
 		filledRectColor.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Color initialBackground = filledRectColor.getBackground();
-		        Color background = JColorChooser.showDialog(null, "Filled color for Rectanlge",
-		            initialBackground);
+		        Color background = JColorChooser.showDialog(null, "Filled color for Rectangle", initialBackground);
 		        if (background != null) {
 		        	filledRectColor.setBackground(background);
 		        }
 			}
-		}); panel.add(filledRectColor);
+		});
+		rectangleManager.add(filledRectColor);
 		
-		rectangleManager.add(panel, BorderLayout.LINE_START);
+		//rectangleManager.add(panel, BorderLayout.LINE_START);
 		shapesManager.add(rectangleManager);		
 	}
 
 	public void buildCircleManager(JPanel shapesManager) {
 		JPanel circleManager = new JPanel();
-		circleManager.setLayout(new BorderLayout());
+		circleManager.setBorder(BorderFactory.createTitledBorder("Circle"));
+		circleManager.setLayout(new GridLayout(3, 2));
 
-		JPanel panel = new JPanel();
-		panel.setBorder(BorderFactory.createTitledBorder("Circle"));
-		panel.setLayout(new GridLayout(3, 2));
-
-		panel.add(new JLabel("Radius : "));
+		circleManager.add(new JLabel("Radius : "));
 		radiusCircle = new JFormattedTextField(NumberFormat.INTEGER_FIELD);
-		panel.add(radiusCircle);
+		circleManager.add(radiusCircle);
 		
-		panel.add(new JLabel("Stroked color : "));
+		circleManager.add(new JLabel("Stroked color : "));
 		strokedCircleColor = new JButton();
 		strokedCircleColor.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Color initialBackground = strokedCircleColor.getBackground();
-		        Color background = JColorChooser.showDialog(null, "Stroked color for Circle",
-		            initialBackground);
+		        Color background = JColorChooser.showDialog(null, "Stroked color for Circle", initialBackground);
 		        if (background != null) {
 		        	strokedCircleColor.setBackground(background);
 		        }
 			}
-		}); panel.add(strokedCircleColor);
+		});
+		circleManager.add(strokedCircleColor);
 		
-		
-		panel.add(new JLabel("Filled color : "));
+		circleManager.add(new JLabel("Filled color : "));
 		filledCircleColor = new JButton();
 		filledCircleColor.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Color initialBackground = filledCircleColor.getBackground();
-		        Color background = JColorChooser.showDialog(null, "Filled color for Circle",
-		            initialBackground);
+		        Color background = JColorChooser.showDialog(null, "Filled color for Circle", initialBackground);
 		        if (background != null) {
 		        	filledCircleColor.setBackground(background);
 		        }
 			}
-		}); panel.add(filledCircleColor);
+		});
+		circleManager.add(filledCircleColor);
 		
-
-		circleManager.add(panel, BorderLayout.LINE_START);
 		shapesManager.add(circleManager);
+	}
+	
+	public void buildPolygonManager(JPanel shapesManager) {
+		JPanel polygonManager = new JPanel();
+		polygonManager.setBorder(BorderFactory.createTitledBorder("Polygon"));
+		polygonManager.setLayout(new GridLayout(5, 2));
+		
+		polygonManager.add(new JLabel("nombre de points : "));
+		nbpoints = new JFormattedTextField(NumberFormat.INTEGER_FIELD);
+		polygonManager.add(nbpoints);
+		
+		//TODO
+		polygonManager.add(new JLabel("x : "));
+		for (int i = 1; i <= (int) nbpoints.getValue(); i++) {
+			x[i] = new JFormattedTextField(NumberFormat.INTEGER_FIELD);
+			polygonManager.add(x[i]);
+		}
+		polygonManager.add(new JLabel("y : "));
+		for (int i = 1; i <= (int) nbpoints.getValue(); i++) {
+			y[i] = new JFormattedTextField(NumberFormat.INTEGER_FIELD);
+			y[i+1] = new JFormattedTextField();
+			polygonManager.add(y[i]);
+		}
+		/*polygonManager.add(new JLabel("x : "));
+		x[0] = new JFormattedTextField(NumberFormat.INTEGER_FIELD);
+		polygonManager.add(x[0]);
+		polygonManager.add(new JLabel("y : "));
+		y[0] = new JFormattedTextField(NumberFormat.INTEGER_FIELD);
+		polygonManager.add(y[0]);
+		
+		for (int i = 1; i <= (int) nbpoints.getValue(); i++) {
+			polygonManager.add(new JLabel("x%i : ", i));
+			x[i] = new JFormattedTextField(NumberFormat.INTEGER_FIELD);
+			polygonManager.add(x[i]);
+			polygonManager.add(new JLabel("y%i : ", i));
+			y[i] = new JFormattedTextField(NumberFormat.INTEGER_FIELD);
+			polygonManager.add(y[i]);
+		}*/
+		
+		polygonManager.add(new JLabel("Stroked color : "));
+		strokedPolygonColor = new JButton();
+		strokedPolygonColor.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Color initialBackground = strokedPolygonColor.getBackground();
+		        Color background = JColorChooser.showDialog(null, "Stroked color for Polygon", initialBackground);
+		        if (background != null) {
+		        	strokedPolygonColor.setBackground(background);
+		        }
+			}
+		});
+		polygonManager.add(strokedPolygonColor);
+		
+		polygonManager.add(new JLabel("Filled color : "));
+		filledPolygonColor = new JButton();
+		filledPolygonColor.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Color initialBackground = filledPolygonColor.getBackground();
+		        Color background = JColorChooser.showDialog(null, "Filled color for Polygon", initialBackground);
+		        if (background != null) {
+		        	filledPolygonColor.setBackground(background);
+		        }
+			}
+		});
+		polygonManager.add(filledPolygonColor);
+		
+		shapesManager.add(polygonManager);
 	}
 	
 	//public void addListenerColor  (shaep)
@@ -437,6 +521,7 @@ public class Editor extends JFrame
 						if(shape.getClass() == SText.class) setText((SText)shape);
 						if(shape.getClass() == SRectangle.class) setRectangle((SRectangle)shape);
 						if(shape.getClass() == SCircle.class) setCircle((SCircle)shape);
+						if(shape.getClass() == SPolygon.class) setPolygon ((SPolygon)shape);
 					}
 				}
 				repaint();
@@ -448,22 +533,23 @@ public class Editor extends JFrame
 		sText.setText(this.textString.getText());
 		FontAttributes font = (FontAttributes)sText.getAttributes(FontAttributes.FONT_ID);
 		if(font == null) {
-			FontAttributes fontAttributes = new FontAttributes(new Font((String)textFont.getSelectedItem(), Font.PLAIN, (int)textSize.getSelectedItem()), textFont.getBackground());
+			FontAttributes fontAttributes = new FontAttributes(new Font((String)fontName.getSelectedItem(), Font.PLAIN, (int)fontSize.getSelectedItem()), fontColor.getBackground());
 			sText.addAttributes(fontAttributes);
 		}
 		else {
-			font.setFont(new Font((String)textFont.getSelectedItem(), Font.BOLD ,(int)textSize.getSelectedItem()));
-			font.setFontColor(textFont.getBackground());
+			font.setFont(new Font((String)fontName.getSelectedItem(), Font.BOLD ,(int)fontSize.getSelectedItem()));
+			font.setFontColor(fontColor.getBackground());
 		}
 		ColorAttributes color = (ColorAttributes)sText.getAttributes(ColorAttributes.COLOR_ID);
-		if(color == null) {
-			ColorAttributes colorAttributes = new ColorAttributes(true, true, this.textBackgroundColor.getBackground(), textColor.getBackground());
+		if (color == null) {
+			ColorAttributes colorAttributes = new ColorAttributes(true, true, this.textFilledColor.getBackground(), textStrokedColor.getBackground());
 			sText.addAttributes(colorAttributes);
 		}
 		else {
-			color.setFilledColor(this.textBackgroundColor.getBackground());
-			color.setStrokedColor(this.textColor.getBackground());
+			color.setFilledColor(this.textFilledColor.getBackground());
+			color.setStrokedColor(this.textStrokedColor.getBackground());
 		}
+		
 	}
 	
 	public void setRectangle(SRectangle sRectangle) {
@@ -493,6 +579,27 @@ public class Editor extends JFrame
 		}
 	}
 	
+	public void setPolygon(SPolygon sPolygon) {
+		int nbpoints = Integer.parseInt(this.nbpoints.getText());
+		sPolygon.setnPoints(nbpoints);
+		int x [] = new int[nbpoints];
+		int y [] = new int[nbpoints];
+		for(int i = 0; i < nbpoints; i++) {
+			x[i] = Integer.parseInt(this.x[i].getText());
+			y[i] = Integer.parseInt(this.y[i].getText());
+		}
+		
+		ColorAttributes color = (ColorAttributes)sPolygon.getAttributes(ColorAttributes.COLOR_ID);
+		if(color == null) {
+			ColorAttributes colorAttributes = new ColorAttributes(true, true, filledPolygonColor.getBackground(), strokedPolygonColor.getBackground());
+			sPolygon.addAttributes(colorAttributes);
+		}
+		else {
+			color.setFilledColor(filledPolygonColor.getBackground());
+			color.setStrokedColor(strokedPolygonColor.getBackground());
+		}
+	}
+	
 	/**
 	 * Création du model : initialisation de la SCollection
 	 */
@@ -514,5 +621,6 @@ public class Editor extends JFrame
 		jsonShapes.readShapesFromJson("src/jsonFiles/oneTexte.json");
 		jsonShapes.readShapesFromJson("src/jsonFiles/oneCollection.json");
 		jsonShapes.readShapesFromJson("src/jsonFiles/test.json");
+		jsonShapes.readShapesFromJson("src/jsonFiles/onePolygon.json");
 	}
 }

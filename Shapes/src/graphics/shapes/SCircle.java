@@ -48,7 +48,6 @@ public class SCircle extends Shape {
 		visitor.visitCircle(this);
 	}
 	
-	@Override
 	public String toString() {
 		return "SCercle [radius=" + radius+ "]";
 	}

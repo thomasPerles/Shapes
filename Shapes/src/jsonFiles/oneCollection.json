@@ -52,12 +52,11 @@
 					}
 				}
 			]
-		},
-		{
+		},{
 			"class" : "Cercle",
 			"prop" : {
 				"radius" : 50,
-				"x" : 100,
+				"x" : 200,
 				"y" : 100
 			},
 			"color" : {
@@ -66,9 +65,7 @@
 				"filledColor" : "#e0e0e0",
 				"strokedColor" : "#ff0000"
 			}
-		},
-		
-		{
+		},{
 			"class" : "Cercle",
 			"prop" : {
 				"radius" : 50,
@@ -80,6 +77,23 @@
 				"stroked" : "true",
 				"filledColor" : "#e0e0e0",
 				"strokedColor" : "#ff0000"
+			}
+		},{
+			"class" : "Polygon",
+			"prop" : {
+				"nbpoints" : 3,
+				"x1" : 100,
+				"y1" : 300,
+				"x2" : 200,
+				"y2" : 400,
+				"x3" : 200,
+				"y3" : 300
+			},
+			"color" : {
+				"filled" : "true",
+				"stroked" : "true",
+				"filledColor" : "#ff0000",
+				"strokedColor" : "#00ff00"
 			}
 		}
 	]

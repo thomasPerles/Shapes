@@ -2,7 +2,6 @@ package graphics.shapes.ui;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.util.Iterator;
 
@@ -68,18 +67,19 @@ public class ShapeDraftman implements ShapeVisitor {
 		FontAttributes font = (FontAttributes) text.getAttributes(FontAttributes.FONT_ID);
 		selectShape(text);
 		g.setFont(font.font());
+		int espaceBas = font.descenderLine(text.getText()); 
 		if (color.isFilled()) {
 			g.setColor(color.filledColor);
-			g.fillRect(text.getBounds().x, text.getBounds().y, font.getBounds(text.getText()).width, font.getBounds(text.getText()).height);
+			g.fillRect(text.getBounds().x, text.getBounds().y, font.getBounds(text.getText()).width, font.getBounds(text.getText()).height + espaceBas);
 		}
 		if (color.isStroked()) {
 			g.setColor(color.strokedColor);
-			g.drawRect(text.getBounds().x, text.getBounds().y, font.getBounds(text.getText()).width, font.getBounds(text.getText()).height);
+			g.drawRect(text.getBounds().x, text.getBounds().y, font.getBounds(text.getText()).width, font.getBounds(text.getText()).height + espaceBas);
 		}
 		
 		g.setColor(font.fontColor());
 		g.drawString(text.getText(), text.getBounds().x, text.getBounds().y + text.getBounds().height);
-		}
+	}
 	
 	public void visitCollection(SCollection collection) {
 		selectShape(collection);

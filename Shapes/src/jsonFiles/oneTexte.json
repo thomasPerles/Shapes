@@ -5,7 +5,7 @@
 			"prop" : {
 				"x" : 100,
 				"y" : 100,
-				"text" : "ça marche!"
+				"text" : "ça marche!\nsuper!"
 			},
 			"color" : {
 				"filled" : "true",

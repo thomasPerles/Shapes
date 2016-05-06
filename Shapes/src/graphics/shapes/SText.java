@@ -50,4 +50,8 @@ public class SText extends Shape {
 	public void accept(ShapeVisitor visitor) {
 		visitor.visitText(this);
 	}
+	
+	public String toString() {
+		return "SText [texte: " + this.text + "]";
+	}
 }

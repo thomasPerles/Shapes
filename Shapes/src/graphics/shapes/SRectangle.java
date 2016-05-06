@@ -68,11 +68,8 @@ public class SRectangle extends Shape {
 	public void accept(ShapeVisitor visitor) {
 		visitor.visitRectangle(this);
 	}
-
-	@Override
+	
 	public String toString() {
 		return "SRectangle [width=" + width + ", height=" + height + "]";
 	}
-	
-	
 }

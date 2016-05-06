@@ -2,15 +2,10 @@ package graphics.shapes.attributes;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.font.FontRenderContext;
 import java.awt.image.BufferedImage;
-
-import graphics.shapes.SCircle;
-import graphics.shapes.ui.Editor;
-import graphics.shapes.ui.ShapeDraftman;
 
 public class FontAttributes extends Attributes {
 
@@ -54,5 +49,10 @@ public class FontAttributes extends Attributes {
 		//FontRenderContext context = ShapeDraftman.shapesView.getGraphics().getFontMetrics().getFontRenderContext();
 		FontRenderContext context = DEFAULT_GRAPHICS.getFontRenderContext();
 		return font.getStringBounds(s, context).getBounds();
+	}
+
+	public int descenderLine(String text) {
+		FontRenderContext context = DEFAULT_GRAPHICS.getFontRenderContext();
+		return (int) this.font.getLineMetrics(text, context).getDescent();
 	}
 }

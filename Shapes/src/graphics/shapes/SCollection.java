@@ -74,4 +74,12 @@ public class SCollection extends Shape {
 	public void accept(ShapeVisitor visitor) {
 		visitor.visitCollection(this);
 	}
+	
+	public String toString() {
+		String tmp = "SCollection [\n";
+		for (Iterator<Shape> it = iterator(); it.hasNext(); ) {
+			tmp = tmp + "\t" + ((Shape) it.next()).toString() + "\n";
+		}
+		return tmp + "]";
+	}
 }

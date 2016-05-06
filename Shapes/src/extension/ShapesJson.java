@@ -14,6 +14,7 @@ import org.json.simple.parser.ParseException;
 
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
+import graphics.shapes.SPolygon;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SText;
 import graphics.shapes.Shape;
@@ -49,6 +50,9 @@ public class ShapesJson {
 		                	break;
 		                case "Collection":
 		                	shapeToSave = this.createCollection(shapeTmp);
+		                	break;
+		                case "Polygon":
+		                	shapeToSave = this.createPolygon(shapeTmp);
 		                	break;
 	                }
 	                shapes.add(shapeToSave);
@@ -132,9 +136,6 @@ public class ShapesJson {
 	
 	public Shape createCollection(JSONObject shapeTmp) {
 		SCollection collection = new SCollection();
-		//while (shapeTmp.get("shapesCollection").toString() == "class") {
-
-		//System.out.println("class de shapesTmp "+shapeTmp.get("class").toString());
 		JSONArray shapeArray2 = (JSONArray) shapeTmp.get("shapes");
 		for (int i = 0; i < shapeArray2.size(); i++) {
 			//System.out.println("boucle for");
@@ -159,5 +160,29 @@ public class ShapesJson {
             collection.add(shapeToSave);
 		}
 		return collection;
+	}
+	
+	public Shape createPolygon(JSONObject shapeTmp) {
+		int nbpoints = Integer.parseInt(((JSONObject)shapeTmp.get("prop")).get("nbpoints").toString());
+		int x[] = new int[nbpoints], y[] = new int[nbpoints];
+		for (int i = 1 ; i <= nbpoints ; i++) {
+			x[i-1] = Integer.parseInt(((JSONObject)shapeTmp.get("prop")).get("x" + i).toString());
+			y[i-1] = Integer.parseInt(((JSONObject)shapeTmp.get("prop")).get("y" + i).toString());
+		}
+		
+		boolean filled = Boolean.parseBoolean(((JSONObject)shapeTmp.get("color")).get("filled").toString());
+		boolean stroked = Boolean.parseBoolean(((JSONObject)shapeTmp.get("color")).get("stroked").toString());
+		String filledColorString = ((JSONObject)shapeTmp.get("color")).get("filledColor").toString();
+		Color filledColor = Color.decode(filledColorString);
+		String strokedColorString = ((JSONObject)shapeTmp.get("color")).get("strokedColor").toString();
+		Color strokedColor = Color.decode(strokedColorString);
+		
+		ColorAttributes colorAttributes = new ColorAttributes(filled, stroked, filledColor, strokedColor);
+		SPolygon polygon = new SPolygon(nbpoints, x, y);
+		
+		polygon.addAttributes(colorAttributes);
+		polygon.addAttributes(new SelectionAttributes());
+		
+		return polygon;
 	}
 }
