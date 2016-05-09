@@ -2,7 +2,8 @@ package graphics.shapes.ui;
 
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
-import graphics.shapes.SPolygon;
+//import graphics.shapes.SPolygon;
+import graphics.shapes.SPolygonRegulier;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SText;
 import graphics.shapes.Shape;
@@ -49,7 +50,8 @@ public class Editor extends JFrame
 	private JPanel shapesManager, shapesButton;
 	private JButton refresh, delete, save;
 	private JTextField textString;
-	private JFormattedTextField widthRectangle, heightRectanlge, radiusCircle, nbpoints, x[], y[];
+	private JFormattedTextField widthRectangle, heightRectanlge, radiusCircle, nbpoints, radiusPolygonRegulier;
+	//private JFormattedTextField x[], y[];
 	private JComboBox<Integer> fontSize;
 	private JComboBox<String> fontName;
 	//private JComboBox<Font> fontStyle;
@@ -244,7 +246,7 @@ public class Editor extends JFrame
 				repaint();
 			}
 		});
-
+/*
 		JButton bPolygon = new JButton("Polygon");
 		bPolygon.setPreferredSize(new Dimension(100, 50));
 		bPolygon.addActionListener(new ActionListener() {
@@ -257,11 +259,25 @@ public class Editor extends JFrame
 				repaint();
 			}
 		});
+*/		
+		JButton bPolygonRegulier = new JButton("PolygonRegulier");
+		bPolygonRegulier.setPreferredSize(new Dimension(100, 50));
+		bPolygonRegulier.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				SPolygonRegulier tmp = new SPolygonRegulier();
+				tmp.addAttributes(new SelectionAttributes());
+				tmp.addAttributes(new ColorAttributes(true,true,Color.GREEN,Color.BLUE));
+				model.add(tmp);
+				repaint();
+			}
+		});
 		
 		shapesButton.add(bText);
 		shapesButton.add(bRectangle);
 		shapesButton.add(bCircle);
-		shapesButton.add(bPolygon);
+		//TODO //shapesButton.add(bPolygon);
+		shapesButton.add(bPolygonRegulier);
 	}
 	
 	/**
@@ -273,7 +289,8 @@ public class Editor extends JFrame
 		buildTextManager(this.shapesManager);
 		buildRectangleManager(this.shapesManager);
 		buildCircleManager(this.shapesManager);
-		buildPolygonManager(this.shapesManager);
+		//TODO //buildPolygonManager(this.shapesManager);
+		buildPolygonRegulierManager(this.shapesManager);
 	}
 	
 	//TODO//rajouter keylistener pour tous les composants
@@ -440,6 +457,7 @@ public class Editor extends JFrame
 		shapesManager.add(circleManager);
 	}
 	
+	/*
 	public void buildPolygonManager(JPanel shapesManager) {
 		JPanel polygonManager = new JPanel();
 		polygonManager.setBorder(BorderFactory.createTitledBorder("Polygon"));
@@ -448,8 +466,10 @@ public class Editor extends JFrame
 		polygonManager.add(new JLabel("nombre de points : "));
 		nbpoints = new JFormattedTextField(NumberFormat.INTEGER_FIELD);
 		polygonManager.add(nbpoints);
-		
-		//TODO
+//idée		
+		x = this.createRowTextField(polygonManager, nbpoints, x, "x : ");
+		y = this.createRowTextField(polygonManager, nbpoints, y, "y : ");
+//idée		
 		polygonManager.add(new JLabel("x : "));
 		for (int i = 1; i <= (int) nbpoints.getValue(); i++) {
 			x[i] = new JFormattedTextField(NumberFormat.INTEGER_FIELD);
@@ -461,13 +481,13 @@ public class Editor extends JFrame
 			y[i+1] = new JFormattedTextField();
 			polygonManager.add(y[i]);
 		}
-		/*polygonManager.add(new JLabel("x : "));
+//idée		
+		polygonManager.add(new JLabel("x : "));
 		x[0] = new JFormattedTextField(NumberFormat.INTEGER_FIELD);
 		polygonManager.add(x[0]);
 		polygonManager.add(new JLabel("y : "));
 		y[0] = new JFormattedTextField(NumberFormat.INTEGER_FIELD);
 		polygonManager.add(y[0]);
-		
 		for (int i = 1; i <= (int) nbpoints.getValue(); i++) {
 			polygonManager.add(new JLabel("x%i : ", i));
 			x[i] = new JFormattedTextField(NumberFormat.INTEGER_FIELD);
@@ -475,7 +495,65 @@ public class Editor extends JFrame
 			polygonManager.add(new JLabel("y%i : ", i));
 			y[i] = new JFormattedTextField(NumberFormat.INTEGER_FIELD);
 			polygonManager.add(y[i]);
-		}*/
+		}
+		
+		polygonManager.add(new JLabel("Stroked color : "));
+		strokedPolygonColor = new JButton();
+		strokedPolygonColor.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Color initialBackground = strokedPolygonColor.getBackground();
+		        Color background = JColorChooser.showDialog(null, "Stroked color for Polygon", initialBackground);
+		        if (background != null) {
+		        	strokedPolygonColor.setBackground(background);
+		        }
+			}
+		});
+		polygonManager.add(strokedPolygonColor);
+		
+		polygonManager.add(new JLabel("Filled color : "));
+		filledPolygonColor = new JButton();
+		filledPolygonColor.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Color initialBackground = filledPolygonColor.getBackground();
+		        Color background = JColorChooser.showDialog(null, "Filled color for Polygon", initialBackground);
+		        if (background != null) {
+		        	filledPolygonColor.setBackground(background);
+		        }
+			}
+		});
+		polygonManager.add(filledPolygonColor);
+		
+		shapesManager.add(polygonManager);
+	}
+	
+	public JFormattedTextField[] createRowTextField(JPanel jp, JFormattedTextField n, JFormattedTextField x[], String s) {
+		jp.add(new JLabel(s));
+		JPanel jp2 = new JPanel();
+		jp2.setLayout(new GridLayout(1, (int) n.getValue()));
+		for (int i = 1; i <= (int) nbpoints.getValue(); i++) {
+			x[i] = new JFormattedTextField(NumberFormat.INTEGER_FIELD);
+			jp2.add(x[i]);
+		}
+		JFormattedTextField jftf = new JFormattedTextField(jp2);
+		jp.add(jftf);
+		return x;
+	}
+	*/
+	
+	public void buildPolygonRegulierManager(JPanel shapesManager) {
+		JPanel polygonManager = new JPanel();
+		polygonManager.setBorder(BorderFactory.createTitledBorder("Polygon Régulier"));
+		polygonManager.setLayout(new GridLayout(4, 2));
+		
+		polygonManager.add(new JLabel("nombre de points : "));
+		nbpoints = new JFormattedTextField(NumberFormat.INTEGER_FIELD);
+		polygonManager.add(nbpoints);
+		
+		polygonManager.add(new JLabel("radius : "));
+		radiusPolygonRegulier = new JFormattedTextField(NumberFormat.INTEGER_FIELD);
+		polygonManager.add(radiusPolygonRegulier);
 		
 		polygonManager.add(new JLabel("Stroked color : "));
 		strokedPolygonColor = new JButton();
@@ -521,7 +599,8 @@ public class Editor extends JFrame
 						if(shape.getClass() == SText.class) setText((SText)shape);
 						if(shape.getClass() == SRectangle.class) setRectangle((SRectangle)shape);
 						if(shape.getClass() == SCircle.class) setCircle((SCircle)shape);
-						if(shape.getClass() == SPolygon.class) setPolygon ((SPolygon)shape);
+						//if(shape.getClass() == SPolygon.class) setPolygon ((SPolygon)shape);
+						if(shape.getClass() == SPolygonRegulier.class) setPolygonRegulier ((SPolygonRegulier)shape);
 					}
 				}
 				repaint();
@@ -578,7 +657,7 @@ public class Editor extends JFrame
 			color.setStrokedColor(strokedCircleColor.getBackground());
 		}
 	}
-	
+	/*
 	public void setPolygon(SPolygon sPolygon) {
 		int nbpoints = Integer.parseInt(this.nbpoints.getText());
 		sPolygon.setnPoints(nbpoints);
@@ -593,6 +672,23 @@ public class Editor extends JFrame
 		if(color == null) {
 			ColorAttributes colorAttributes = new ColorAttributes(true, true, filledPolygonColor.getBackground(), strokedPolygonColor.getBackground());
 			sPolygon.addAttributes(colorAttributes);
+		}
+		else {
+			color.setFilledColor(filledPolygonColor.getBackground());
+			color.setStrokedColor(strokedPolygonColor.getBackground());
+		}
+	}
+	*/
+	public void setPolygonRegulier(SPolygonRegulier sPolygonRegulier) {
+		int nbpoints = Integer.parseInt(this.nbpoints.getText());
+		sPolygonRegulier.setnPoints(nbpoints);
+		int radius = Integer.parseInt(this.radiusPolygonRegulier.getText());
+		sPolygonRegulier.setRadius(radius);
+		
+		ColorAttributes color = (ColorAttributes)sPolygonRegulier.getAttributes(ColorAttributes.COLOR_ID);
+		if(color == null) {
+			ColorAttributes colorAttributes = new ColorAttributes(true, true, filledPolygonColor.getBackground(), strokedPolygonColor.getBackground());
+			sPolygonRegulier.addAttributes(colorAttributes);
 		}
 		else {
 			color.setFilledColor(filledPolygonColor.getBackground());
@@ -622,5 +718,6 @@ public class Editor extends JFrame
 		jsonShapes.readShapesFromJson("src/jsonFiles/oneCollection.json");
 		jsonShapes.readShapesFromJson("src/jsonFiles/test.json");
 		jsonShapes.readShapesFromJson("src/jsonFiles/onePolygon.json");
+		jsonShapes.readShapesFromJson("src/jsonFiles/onePolygonRegulier.json");
 	}
 }

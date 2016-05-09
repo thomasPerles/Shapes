@@ -5,8 +5,8 @@ import java.awt.Rectangle;
 
 public class SCircle extends Shape {
 
-	private int radius;	//point en haut a gauche
-	private Point loc;	//rayon du cercle
+	private int radius;	//rayon du cercle
+	private Point loc;	//point en haut a gauche
 	
 	public SCircle() {
 		this.radius = 10;

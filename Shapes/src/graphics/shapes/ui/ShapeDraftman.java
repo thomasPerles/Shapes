@@ -8,6 +8,7 @@ import java.util.Iterator;
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
 import graphics.shapes.SPolygon;
+import graphics.shapes.SPolygonRegulier;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SText;
 import graphics.shapes.Shape;
@@ -59,6 +60,19 @@ public class ShapeDraftman implements ShapeVisitor {
 		if (color.isStroked()) {
 			g.setColor(color.strokedColor);
 			g.drawPolygon(polygon.x, polygon.y, polygon.nPoints);
+		}
+	}
+	
+	public void visitPolygonRegulier(SPolygonRegulier sPolygonRegulier) {
+		ColorAttributes color = (ColorAttributes) sPolygonRegulier.getAttributes(ColorAttributes.COLOR_ID);
+		selectShape(sPolygonRegulier);
+		if (color.isFilled()) {
+			g.setColor(color.filledColor);
+			g.fillPolygon(sPolygonRegulier.x, sPolygonRegulier.y, sPolygonRegulier.nPoints);
+		}
+		if (color.isStroked()) {
+			g.setColor(color.strokedColor);
+			g.drawPolygon(sPolygonRegulier.x, sPolygonRegulier.y, sPolygonRegulier.nPoints);
 		}
 	}
 	

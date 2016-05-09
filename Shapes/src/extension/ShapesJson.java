@@ -15,6 +15,7 @@ import org.json.simple.parser.ParseException;
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
 import graphics.shapes.SPolygon;
+import graphics.shapes.SPolygonRegulier;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SText;
 import graphics.shapes.Shape;
@@ -53,6 +54,9 @@ public class ShapesJson {
 		                	break;
 		                case "Polygon":
 		                	shapeToSave = this.createPolygon(shapeTmp);
+		                	break;
+		                case "PolygonRegulier":
+		                	shapeToSave = this.createPolygonRegulier(shapeTmp);
 		                	break;
 	                }
 	                shapes.add(shapeToSave);
@@ -179,6 +183,28 @@ public class ShapesJson {
 		
 		ColorAttributes colorAttributes = new ColorAttributes(filled, stroked, filledColor, strokedColor);
 		SPolygon polygon = new SPolygon(nbpoints, x, y);
+		
+		polygon.addAttributes(colorAttributes);
+		polygon.addAttributes(new SelectionAttributes());
+		
+		return polygon;
+	}
+	
+	public Shape createPolygonRegulier(JSONObject shapeTmp) {
+		int nbpoints = Integer.parseInt(((JSONObject)shapeTmp.get("prop")).get("nbpoints").toString());
+		int radius = Integer.parseInt(((JSONObject)shapeTmp.get("prop")).get("radius").toString());
+		int x = Integer.parseInt(((JSONObject)shapeTmp.get("prop")).get("x").toString());
+		int y = Integer.parseInt(((JSONObject)shapeTmp.get("prop")).get("y").toString());
+		
+		boolean filled = Boolean.parseBoolean(((JSONObject)shapeTmp.get("color")).get("filled").toString());
+		boolean stroked = Boolean.parseBoolean(((JSONObject)shapeTmp.get("color")).get("stroked").toString());
+		String filledColorString = ((JSONObject)shapeTmp.get("color")).get("filledColor").toString();
+		Color filledColor = Color.decode(filledColorString);
+		String strokedColorString = ((JSONObject)shapeTmp.get("color")).get("strokedColor").toString();
+		Color strokedColor = Color.decode(strokedColorString);
+		
+		ColorAttributes colorAttributes = new ColorAttributes(filled, stroked, filledColor, strokedColor);
+		SPolygonRegulier polygon = new SPolygonRegulier(nbpoints, radius, new Point(x, y));
 		
 		polygon.addAttributes(colorAttributes);
 		polygon.addAttributes(new SelectionAttributes());
