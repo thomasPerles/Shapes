@@ -9,8 +9,8 @@ public class SRectangle extends Shape {
 	private int width, height;
 	
 	public SRectangle() {
-		this.width = 150;
-		this.height = 100;
+		this.width = 75;
+		this.height = 50;
 		this.rect = new Rectangle (50, 50, this.width, this.height);
 	}
 	

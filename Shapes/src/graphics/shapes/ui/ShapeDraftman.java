@@ -119,10 +119,6 @@ public class ShapeDraftman implements ShapeVisitor {
 		if(selection.isSelected()) {
 			shapesView.getGraphics().setColor(Color.BLUE);
 			shapesView.getGraphics().drawRect(tmp.x - 4, tmp.y -4 , 4, 4);
-			System.out.println("objet selectionné " + s.getClass().toString());
-		}
-		else {
-			System.out.println("PAS DE SELECTION : " + s.getClass().toString());
 		}
 	}
 	

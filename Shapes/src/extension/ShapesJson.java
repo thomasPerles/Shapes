@@ -73,6 +73,7 @@ public class ShapesJson {
 	public Shape createRectangle(JSONObject shapeTmp) {
 		int width = Integer.parseInt(((JSONObject)shapeTmp.get("prop")).get("width").toString());
 		int height = Integer.parseInt(((JSONObject)shapeTmp.get("prop")).get("height").toString());
+		Point loc = new Point(Integer.parseInt(((JSONObject)shapeTmp.get("prop")).get("x").toString()), Integer.parseInt(((JSONObject)shapeTmp.get("prop")).get("y").toString()));
 		
 		boolean filled = Boolean.parseBoolean(((JSONObject)shapeTmp.get("color")).get("filled").toString());
 		boolean stroked = Boolean.parseBoolean(((JSONObject)shapeTmp.get("color")).get("stroked").toString());
@@ -82,12 +83,11 @@ public class ShapesJson {
 		Color strokedColor = Color.decode(strokedColorString);
 		
 		ColorAttributes colorAttributes = new ColorAttributes(filled, stroked, filledColor, strokedColor);
-		SRectangle rectangle = new SRectangle(width, height);
+		SRectangle rectangle = new SRectangle(loc, width, height);
 		
 		rectangle.addAttributes(colorAttributes);
 		rectangle.addAttributes(new SelectionAttributes());
 		
-		//System.out.println("width : " + width + " height : " + height + " filled : " + filled +" "+ filledColor + " " + strokedColor);
 		return rectangle;
 	}
 	
@@ -142,9 +142,7 @@ public class ShapesJson {
 		SCollection collection = new SCollection();
 		JSONArray shapeArray2 = (JSONArray) shapeTmp.get("shapes");
 		for (int i = 0; i < shapeArray2.size(); i++) {
-			//System.out.println("boucle for");
 			JSONObject shapeTmp2 = (JSONObject) shapeArray2.get(i);
-			System.out.println("class de shapesTmp2 "+shapeTmp2.get("class").toString());
 			Shape shapeToSave = null;
             switch (shapeTmp2.get("class").toString()) {
 	        	case "Rectangle":

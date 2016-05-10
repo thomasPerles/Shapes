@@ -8,6 +8,7 @@ import java.util.Iterator;
 public class SCollection extends Shape {
 
 	private ArrayList<Shape> shapesCollection;
+	private boolean isCollection = true;
 	
 	public ArrayList<Shape> getShapesCollection() {
 		return shapesCollection;
@@ -16,6 +17,7 @@ public class SCollection extends Shape {
 	public SCollection() {
 		super();
 		this.shapesCollection = new ArrayList<Shape>();
+		isCollection = true;
 	}
 	
 	public Iterator<Shape> iterator() {
@@ -74,7 +76,11 @@ public class SCollection extends Shape {
 	public void accept(ShapeVisitor visitor) {
 		visitor.visitCollection(this);
 	}
-	
+		
+	public boolean isCollection() {
+		return isCollection;
+	}
+
 	public String toString() {
 		String tmp = "SCollection [\n";
 		for (Iterator<Shape> it = iterator(); it.hasNext(); ) {

@@ -56,7 +56,9 @@
 			"class" : "Rectangle",
 			"prop" : {
 				"width" : 150,
-				"height" : 40
+				"height" : 40,
+				"x" : 300,
+				"y" : 150
 			},
 			"color" : {
 				"filled" : "true",

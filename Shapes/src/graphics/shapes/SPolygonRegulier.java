@@ -107,7 +107,6 @@ public class SPolygonRegulier extends SPolygon {
 	}
 	
 	public String toString() {
-		//return "SPolygonRegulier [nPoints: " + this.nPoints + ", radius: " + this.radius + " et loc: " + this.loc + "]";
 		String s = "SPolygonRegulier [nPoints: " + this.nPoints + ", radius: " + this.radius + " et loc: " + this.loc + "]" + "\nx : ";
 		for (int i = 0; i<nPoints; i++){
 			s = s + "\t" + x[i];
@@ -118,9 +117,4 @@ public class SPolygonRegulier extends SPolygon {
 		}
 		return s;
 	}
-	/*
-	public static void main(String[] args) {
-		SPolygonRegulier poly = new SPolygonRegulier(5, 50, new Point(100, 100));
-		System.out.println(poly.toString());
-	}*/
 }

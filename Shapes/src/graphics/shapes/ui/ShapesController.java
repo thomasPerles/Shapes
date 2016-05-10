@@ -124,14 +124,11 @@ public class ShapesController extends Controller {
 	}
 	
 	public void keyTyped(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_F5) System.out.println("J'AI APPUYER SUR F5555555 typed");
 	}
 	
 	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_F5) System.out.println("J'AI APPUYER SUR F5555555 relesaed");
 	}
 
 	public void keyReleased(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_F5) System.out.println("J'AI APPUYER SUR F5555555 pressed");
 	}
 }

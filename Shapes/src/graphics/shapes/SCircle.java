@@ -9,7 +9,7 @@ public class SCircle extends Shape {
 	private Point loc;	//point en haut a gauche
 	
 	public SCircle() {
-		this.radius = 10;
+		this.radius = 50;
 		this.loc = new Point(50, 50);
 	}
 	

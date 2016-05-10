@@ -22,7 +22,9 @@
 					"class" : "Rectangle",
 					"prop" : {
 						"width" : 150,
-						"height" : 40
+						"height" : 40,
+						"x" : 45,
+						"y" : 60
 					},
 					"color" : {
 						"filled" : "true",

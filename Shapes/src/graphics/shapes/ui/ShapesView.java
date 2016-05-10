@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import graphics.shapes.SCollection;
 import graphics.ui.View;
 
-public class ShapesView extends View{
+public class ShapesView extends View {
 	
 	private ShapeDraftman draftman;
 	private ShapesController controller;
