@@ -1,0 +1,102 @@
+{
+	"shapes" : [
+		{
+			"class" : "Collection",
+			"shapes" :
+			[
+				{
+					"class" : "Cercle",
+					"prop" : {
+						"radius" : 50,
+						"x" : 100,
+						"y" : 100
+					},
+					"color" : {
+						"filled" : "true",
+						"stroked" : "true",
+						"filledColor" : "#e0e0e0",
+						"strokedColor" : "#ff0000"
+					}
+				},
+				{
+					"class" : "Rectangle",
+					"prop" : {
+						"width" : 150,
+						"height" : 40,
+						"x" : 45,
+						"y" : 60
+					},
+					"color" : {
+						"filled" : "true",
+						"stroked" : "true",
+						"filledColor" : "#ffffff",
+						"strokedColor" : "#000000"
+					}
+				},
+				{
+					"class" : "Texte",
+					"prop" : {
+						"x" : 100,
+						"y" : 100,
+						"text" : "ça marche!"
+					},
+					"color" : {
+						"filled" : "true",
+						"stroked" : "true",
+						"filledColor" : "#ff0000",
+						"strokedColor" : "#00ff00"
+					},
+					"font" : {
+						"name" : "Arial",
+						"style" : "BOLD",
+						"size" : 50,
+						"color" : "#0000ff"
+					}
+				}
+			]
+		},{
+			"class" : "Cercle",
+			"prop" : {
+				"radius" : 50,
+				"x" : 200,
+				"y" : 100
+			},
+			"color" : {
+				"filled" : "true",
+				"stroked" : "true",
+				"filledColor" : "#e0e0e0",
+				"strokedColor" : "#ff0000"
+			}
+		},{
+			"class" : "Cercle",
+			"prop" : {
+				"radius" : 50,
+				"x" : 150,
+				"y" : 190
+			},
+			"color" : {
+				"filled" : "true",
+				"stroked" : "true",
+				"filledColor" : "#e0e0e0",
+				"strokedColor" : "#ff0000"
+			}
+		},{
+			"class" : "Polygon",
+			"prop" : {
+				"nbpoints" : 3,
+				"x1" : 100,
+				"y1" : 300,
+				"x2" : 200,
+				"y2" : 400,
+				"x3" : 200,
+				"y3" : 300
+			},
+			"color" : {
+				"filled" : "true",
+				"stroked" : "true",
+				"filledColor" : "#ff0000",
+				"strokedColor" : "#00ff00"
+			}
+		}
+	]
+}

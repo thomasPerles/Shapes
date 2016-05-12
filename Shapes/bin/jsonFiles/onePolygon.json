@@ -1,0 +1,43 @@
+{
+	"shapes" : [
+		{
+			"class" : "Polygon",
+			"prop" : {
+				"nbpoints" : 3,
+				"x1" : 100,
+				"y1" : 300,
+				"x2" : 200,
+				"y2" : 400,
+				"x3" : 200,
+				"y3" : 300
+			},
+			"color" : {
+				"filled" : "true",
+				"stroked" : "true",
+				"filledColor" : "#ff0000",
+				"strokedColor" : "#00ff00"
+			}
+		},{
+			"class" : "Polygon",
+			"prop" : {
+				"nbpoints" : 5,
+				"x1" : 200,
+				"y1" : 100,
+				"x2" : 135,
+				"y2" : 190,
+				"x3" : 29,
+				"y3" : 156,
+				"x4" : 29,
+				"y4" : 44,
+				"x5" : 135,
+				"y5" : 10,
+			},
+			"color" : {
+				"filled" : "true",
+				"stroked" : "true",
+				"filledColor" : "#0000ff",
+				"strokedColor" : "#ff0000"
+			}
+		}
+	]
+}

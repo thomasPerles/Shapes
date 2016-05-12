@@ -97,9 +97,7 @@ public class ShapesController extends Controller {
 		if(s!=null) {
 			if (!e.isShiftDown())
 				this.unselectAll();
-			
-			if (s != null)
-				((SelectionAttributes)s.getAttributes(SelectionAttributes.SELECTION_ID)).toggleSelection();
+			((SelectionAttributes)s.getAttributes(SelectionAttributes.SELECTION_ID)).toggleSelection();
 		}
 		else {
 			unselectAll();
@@ -108,6 +106,10 @@ public class ShapesController extends Controller {
 	}
 	
 	public void mouseEntered(MouseEvent e) {
+		Shape s = getTarget(e.getX(), e.getY());
+		if(s != null) {
+			System.out.println("Sur un shape : " + s.getClass().toString());
+		}
 	}
 
 	public void mouseExited(MouseEvent e) {

@@ -1,0 +1,33 @@
+{
+	"shapes" : [
+		{
+			"class" : "PolygonRegulier",
+			"prop" : {
+				"nbpoints" : 5,
+				"radius" : 50,
+				"x" : 100,
+				"y" : 100
+			},
+			"color" : {
+				"filled" : "true",
+				"stroked" : "true",
+				"filledColor" : "#ff0000",
+				"strokedColor" : "#00ff00"
+			}
+		},{
+			"class" : "PolygonRegulier",
+			"prop" : {
+				"nbpoints" : 6,
+				"radius" : 80,
+				"x" : 200,
+				"y" : 100
+			},
+			"color" : {
+				"filled" : "true",
+				"stroked" : "true",
+				"filledColor" : "#0000ff",
+				"strokedColor" : "#ff0000"
+			}
+		}
+	]
+}

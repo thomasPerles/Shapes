@@ -1,0 +1,90 @@
+{
+	"shapes" : [
+		{
+			"class" : "Cercle",
+			"prop" : {
+				"radius" : 50,
+				"x" : 100,
+				"y" : 100
+			},
+			"color" : {
+				"filled" : "true",
+				"stroked" : "true",
+				"filledColor" : "#e0e0e0",
+				"strokedColor" : "#ff0000"
+			}
+		},{
+			"class" : "Cercle",
+			"prop" : {
+				"radius" : 50,
+				"x" : 150,
+				"y" : 190
+			},
+			"color" : {
+				"filled" : "true",
+				"stroked" : "true",
+				"filledColor" : "#e0e0e0",
+				"strokedColor" : "#ff0000"
+			}
+		},{
+			"class" : "Cercle",
+			"prop" : {
+				"radius" : 20,
+				"x" : 500,
+				"y" : 100
+			},
+			"color" : {
+				"filled" : "true",
+				"stroked" : "true",
+				"filledColor" : "#e0e0e0",
+				"strokedColor" : "#ff0000"
+			}
+		},{
+			"class" : "Cercle",
+			"prop" : {
+				"radius" : 50,
+				"x" : 500,
+				"y" : 100
+			},
+			"color" : {
+				"filled" : "true",
+				"stroked" : "true",
+				"filledColor" : "#e0e0e0",
+				"strokedColor" : "#ff0000"
+			}
+		},{
+			"class" : "Rectangle",
+			"prop" : {
+				"width" : 150,
+				"height" : 40,
+				"x" : 300,
+				"y" : 150
+			},
+			"color" : {
+				"filled" : "true",
+				"stroked" : "true",
+				"filledColor" : "#ffffff",
+				"strokedColor" : "#000000"
+			}
+		},{
+			"class" : "Texte",
+			"prop" : {
+				"x" : 100,
+				"y" : 100,
+				"text" : "ça marche!"
+			},
+			"color" : {
+			"filled" : "true",
+				"stroked" : "true",
+				"filledColor" : "#ff0000",
+				"strokedColor" : "#00ff00"
+			},
+			"font" : {
+				"name" : "Arial",
+				"style" : "BOLD",
+				"size" : 50,
+				"color" : "#0000ff"
+			}
+		}
+	]
+}

@@ -164,6 +164,7 @@ public class Editor extends JFrame
 				}
 			}
 		});
+		delete.setToolTipText("Delete the selected shape(s)");
 		
 		deleteAll = new JButton("Delete all");
 		deleteAll.setSize(new Dimension(50, 50));
@@ -174,50 +175,71 @@ public class Editor extends JFrame
 				repaint();
 			}
 		});
+		deleteAll.setToolTipText("Delete all shapes");
 		
 		group = new JButton("Group");
+		group.setToolTipText("Create a group of shapes");
 		group.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				SCollection newCollection = new SCollection();
-				newCollection.addAttributes(new SelectionAttributes());
+				int selectedCount = 0;
 				for(Iterator<Shape> it = model.iterator(); it.hasNext();) {
 					Shape s  = (Shape)it.next();
 					SelectionAttributes selection = (SelectionAttributes)s.getAttributes(SelectionAttributes.SELECTION_ID);
-					if(selection.isSelected()) {
-						selection.toggleSelection();
-						newCollection.add(s);
-					}
+					if(selection.isSelected())
+						++selectedCount;
 				}
-				model.getShapesCollection().removeAll(newCollection.getShapesCollection());
-				model.add(newCollection);
-				repaint();
+				if(selectedCount>1) {
+					SCollection newCollection = new SCollection();
+					newCollection.addAttributes(new SelectionAttributes());
+					for(Iterator<Shape> it = model.iterator(); it.hasNext();) {
+						Shape s  = (Shape)it.next();
+						SelectionAttributes selection = (SelectionAttributes)s.getAttributes(SelectionAttributes.SELECTION_ID);
+						if(selection.isSelected()) {
+							selection.toggleSelection();
+							newCollection.add(s);
+						}
+					}
+					model.getShapesCollection().removeAll(newCollection.getShapesCollection());
+					model.add(newCollection);
+					repaint();
+				}
 			}
 		});
 		
 		split = new JButton("Split");
+		split.setToolTipText("Split the group of shapes");
 		split.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<SCollection> listSCollection = new ArrayList<SCollection>();
+				int selectedCount = 0;
 				for(Iterator<Shape> it = model.iterator(); it.hasNext();) {
 					Shape s  = (Shape)it.next();
 					SelectionAttributes selection = (SelectionAttributes)s.getAttributes(SelectionAttributes.SELECTION_ID);
-					if(selection.isSelected() && ((SCollection)s).isCollection()) {
-						listSCollection.add((SCollection)s);
-						it.remove();
-					}
+					if(selection.isSelected())
+						++selectedCount;
 				}
-				for(SCollection sc : listSCollection) {
-					for(Iterator<Shape> it = sc.iterator(); it.hasNext();) {
-						Shape s = (Shape) it.next();
-						s.addAttributes(new SelectionAttributes());
-						model.add(s);
+				if(selectedCount>1) {
+					for(Iterator<Shape> it = model.iterator(); it.hasNext();) {
+						Shape s  = (Shape)it.next();
+						SelectionAttributes selection = (SelectionAttributes)s.getAttributes(SelectionAttributes.SELECTION_ID);
+						if(selection.isSelected() && ((SCollection)s).isCollection()) {
+							listSCollection.add((SCollection)s);
+							it.remove();
+						}
 					}
+					for(SCollection sc : listSCollection) {
+						for(Iterator<Shape> it = sc.iterator(); it.hasNext();) {
+							Shape s = (Shape) it.next();
+							s.addAttributes(new SelectionAttributes());
+							model.add(s);
+						}
+					}
+					repaint();
 				}
-				repaint();
 				
 			}
 		});
@@ -573,6 +595,7 @@ public class Editor extends JFrame
 					if(selection.isSelected()) {
 						if(shape.getClass() == SText.class) setText((SText)shape);
 						if(shape.getClass() == SRectangle.class) setRectangle((SRectangle)shape);
+						if(shape.getClass() == SCircle.class) setCircle((SCircle)shape);
 						if(shape.getClass() == SPolygonRegulier.class) setPolygonRegulier ((SPolygonRegulier)shape);
 					}
 				}
