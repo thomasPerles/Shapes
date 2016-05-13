@@ -1,0 +1,84 @@
+{
+	"shapes" : [
+		{
+			"class" : "Collection",
+			"shapes" :
+			[
+				{
+					"class" : "Cercle",
+					"prop" : {
+						"radius" : 50,
+						"x" : 100,
+						"y" : 500
+					},
+					"color" : {
+						"filled" : "true",
+						"stroked" : "true",
+						"filledColor" : "#e0e0e0",
+						"strokedColor" : "#ff0000"
+					}
+				},{
+					"class" : "Cercle",
+					"prop" : {
+						"radius" : 50,
+						"x" : 400,
+						"y" : 500
+					},
+					"color" : {
+						"filled" : "true",
+						"stroked" : "true",
+						"filledColor" : "#e0e0e0",
+						"strokedColor" : "#ff0000"
+					}
+				},{
+					"class" : "Rectangle",
+					"prop" : {
+						"width" : 100,
+						"height" : 500,
+						"x" : 50,
+						"y" : 400
+					},
+					"color" : {
+						"filled" : "true",
+						"stroked" : "true",
+						"filledColor" : "#ffffff",
+						"strokedColor" : "#000000"
+					}
+				},{
+					"class" : "Rectangle",
+					"prop" : {
+						"width" : 50,
+						"height" : 300,
+						"x" : 150,
+						"y" : 350
+					},
+					"color" : {
+						"filled" : "true",
+						"stroked" : "true",
+						"filledColor" : "#ffffff",
+						"strokedColor" : "#000000"
+					}
+				},{
+					"class" : "Texte",
+					"prop" : {
+						"x" : 150,
+						"y" : 150,
+						"text" : "notre voiture"
+					},
+					"color" : {
+						"filled" : "true",
+						"stroked" : "true",
+						"filledColor" : "#ff0000",
+						"strokedColor" : "#00ff00"
+					},
+					"font" : {
+						"name" : "Arial",
+						"style" : "BOLD",
+						"size" : 50,
+						"color" : "#0000ff"
+					}
+				}
+			]
+		}
+	]
+}

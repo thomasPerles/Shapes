@@ -1,0 +1,108 @@
+{
+	"shapes" : [
+		{
+			"class" : "Collection",
+			"shapes" :
+			[
+				{
+					"class" : "Cercle",
+					"prop" : {
+						"radius" : 200,
+						"x" : 100,
+						"y" : 200
+					},
+					"color" : {
+						"filled" : "true",
+						"stroked" : "true",
+						"filledColor" : "#e0e0e0",
+						"strokedColor" : "#ff0000"
+					}
+				},{
+					"class" : "Cercle",
+					"prop" : {
+						"radius" : 100,
+						"x" : 0,
+						"y" : 200
+					},
+					"color" : {
+						"filled" : "true",
+						"stroked" : "true",
+						"filledColor" : "#e0e0e0",
+						"strokedColor" : "#ff0000"
+					}
+				},{
+					"class" : "Cercle",
+					"prop" : {
+						"radius" : 100,
+						"x" : 400,
+						"y" : 200
+					},
+					"color" : {
+						"filled" : "true",
+						"stroked" : "true",
+						"filledColor" : "#e0e0e0",
+						"strokedColor" : "#ff0000"
+					}
+				},{
+					"class" : "Cercle",
+					"prop" : {
+						"radius" : 25,
+						"x" : 195,
+						"y" : 345
+					},
+					"color" : {
+						"filled" : "true",
+						"stroked" : "true",
+						"filledColor" : "#000000",
+						"strokedColor" : "#ff0000"
+					}
+				},{
+					"class" : "Cercle",
+					"prop" : {
+						"radius" : 25,
+						"x" : 345,
+						"y" : 345
+					},
+					"color" : {
+						"filled" : "true",
+						"stroked" : "true",
+						"filledColor" : "#000000",
+						"strokedColor" : "#ff0000"
+					}
+				},{
+					"class" : "Cercle",
+					"prop" : {
+						"radius" : 10,
+						"x" : 295,
+						"y" : 445
+					},
+					"color" : {
+						"filled" : "true",
+						"stroked" : "true",
+						"filledColor" : "#000000",
+						"strokedColor" : "#ff0000"
+					}
+				},{
+					"class" : "Texte",
+					"prop" : {
+						"x" : 150,
+						"y" : 50,
+						"text" : "notre mickey"
+					},
+					"color" : {
+						"filled" : "true",
+						"stroked" : "true",
+						"filledColor" : "#ff0000",
+						"strokedColor" : "#00ff00"
+					},
+					"font" : {
+						"name" : "Arial",
+						"style" : "BOLD",
+						"size" : 50,
+						"color" : "#0000ff"
+					}
+				}
+			]
+		}
+	]
+}

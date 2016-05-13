@@ -728,5 +728,8 @@ public class Editor extends JFrame
 		jsonShapes.readShapesFromJson("src/jsonFiles/test.json");
 		jsonShapes.readShapesFromJson("src/jsonFiles/onePolygon.json");
 		jsonShapes.readShapesFromJson("src/jsonFiles/onePolygonRegulier.json");
+		jsonShapes.readShapesFromJson("src/jsonFiles/voiture.json");
+		jsonShapes.readShapesFromJson("src/jsonFiles/maison.json");
+		jsonShapes.readShapesFromJson("src/jsonFiles/mickey.json");
 	}
 }
