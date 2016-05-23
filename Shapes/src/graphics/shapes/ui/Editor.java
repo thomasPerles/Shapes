@@ -215,31 +215,24 @@ public class Editor extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<SCollection> listSCollection = new ArrayList<SCollection>();
-				int selectedCount = 0;
 				for(Iterator<Shape> it = model.iterator(); it.hasNext();) {
 					Shape s  = (Shape)it.next();
 					SelectionAttributes selection = (SelectionAttributes)s.getAttributes(SelectionAttributes.SELECTION_ID);
-					if(selection.isSelected())
-						++selectedCount;
-				}
-				if(selectedCount>1) {
-					for(Iterator<Shape> it = model.iterator(); it.hasNext();) {
-						Shape s  = (Shape)it.next();
-						SelectionAttributes selection = (SelectionAttributes)s.getAttributes(SelectionAttributes.SELECTION_ID);
-						if(selection.isSelected() && ((SCollection)s).isCollection()) {
-							listSCollection.add((SCollection)s);
-							it.remove();
-						}
+
+					System.out.println(selection.isSelected() && s.getClass()==SCollection.class);
+					if(selection.isSelected() && s.getClass()==SCollection.class) {
+						listSCollection.add((SCollection)s);
+						it.remove();
 					}
-					for(SCollection sc : listSCollection) {
-						for(Iterator<Shape> it = sc.iterator(); it.hasNext();) {
-							Shape s = (Shape) it.next();
-							s.addAttributes(new SelectionAttributes());
-							model.add(s);
-						}
-					}
-					repaint();
 				}
+				for(SCollection sc : listSCollection) {
+					for(Iterator<Shape> it2 = sc.iterator(); it2.hasNext();) {
+						Shape s2 = (Shape) it2.next();
+						s2.addAttributes(new SelectionAttributes());
+						model.add(s2);
+					}
+				}
+				repaint();
 				
 			}
 		});

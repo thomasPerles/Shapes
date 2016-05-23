@@ -76,10 +76,6 @@ public class SCollection extends Shape {
 	public void accept(ShapeVisitor visitor) {
 		visitor.visitCollection(this);
 	}
-		
-	public boolean isCollection() {
-		return isCollection;
-	}
 
 	public String toString() {
 		String tmp = "SCollection [\n";

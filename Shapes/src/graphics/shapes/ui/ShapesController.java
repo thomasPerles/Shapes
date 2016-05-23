@@ -25,8 +25,17 @@ public class ShapesController extends Controller {
 	public void translateSelected(int dx, int dy) {
 		for (Iterator<Shape> it = ((SCollection) this.getModel()).iterator(); it.hasNext(); ) {
 			Shape s = (Shape) it.next();
-			if (((SelectionAttributes)s.getAttributes(SelectionAttributes.SELECTION_ID)).isSelected())
-				s.translate(dx - s.decx + s.getBounds().x, dy - s.decy + s.getBounds().y);
+			if (((SelectionAttributes)s.getAttributes(SelectionAttributes.SELECTION_ID)).isSelected()) {
+				if(s.getClass() == SCollection.class) {
+					for(Iterator<Shape> it2 = ((SCollection)s).iterator(); it2.hasNext();) {
+						Shape s2 = (Shape)it2.next();
+						s2.translate(dx - s.decx + s2.getLoc().x, dy - s.decy + s2.getLoc().y);
+					}
+				}
+				else {
+					s.translate(dx - s.decx + s.getBounds().x, dy - s.decy + s.getBounds().y);
+				}
+			}
 		}
 	}
 	
@@ -74,20 +83,6 @@ public class ShapesController extends Controller {
 	}
 	
 	public void mouseReleased(MouseEvent e) {
-		/*Shape s = getTarget(e.getX(), e.getY());
-		if(s!=null) {
-			if (((SelectionAttributes)s.getAttributes(SelectionAttributes.SELECTION_ID)).isSelected()) {
-				int n = 300;
-				int x = 50;
-				for(int i = 0 ; i < n+1 ; i++) {
-					this.translateSelected(e.getX() - x + ((int) (x*Math.cos(i*2*Math.PI/n))), e.getY() + ((int) (x*Math.sin(i*2*Math.PI/n))));
-					this.view.update(this.view.getGraphics());
-				}
-			}
-		}
-		else {
-			unselectAll();
-		}*/
 	}
 	
 	public void mouseClicked(MouseEvent e) {
@@ -106,10 +101,6 @@ public class ShapesController extends Controller {
 	}
 	
 	public void mouseEntered(MouseEvent e) {
-		Shape s = getTarget(e.getX(), e.getY());
-		if(s != null) {
-			System.out.println("Sur un shape : " + s.getClass().toString());
-		}
 	}
 
 	public void mouseExited(MouseEvent e) {
@@ -122,7 +113,7 @@ public class ShapesController extends Controller {
 		if (move) {
 			this.translateSelected(e.getX(), e.getY());
 		}
-		this.view.update(this.view.getGraphics());
+		this.view.paintComponent(this.view.getGraphics());
 	}
 	
 	public void keyTyped(KeyEvent e) {
